@@ -1,8 +1,10 @@
 import Character from "./Character.ts";
 
 export default class Monster extends Character {
-    
-    protected monsterAttack(target: Character[]){
+
+    type = "enemy";
+
+    monsterAttack(target: Character[]){
         let lifeTargets = target.map(target => target.currentLifePoints);
         lifeTargets.sort((a, b) => a - b);
         let random = Math.floor(Math.random() * 100);
@@ -11,7 +13,9 @@ export default class Monster extends Character {
             target[0].currentLifePoints -= this.physicalAttack;
         } else {
             random = Math.floor(Math.random() * target.length);
+            target[random].currentLifePoints -= this.physicalAttack - target[random].physicalDefense;
             console.log(`${this.name} attacks ${target[random].name}`);
         }
+        console.log(`${this.name} attacks ${target[random].name} with ${this.physicalAttack - target[random].physicalDefense} points of damage. ${target[random].name} has ${target[random].currentLifePoints} life points left.`)
     }
 }

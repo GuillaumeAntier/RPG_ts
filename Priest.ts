@@ -2,7 +2,9 @@ import Character from "./Character.ts";
 
 export default class Priest extends Character {
 
-    protected healPriest(targetAllies : Character[]){
+    type = "ally";
+
+    specialAttack(targetAllies : Character[]){
         for (let i = 0; i<targetAllies.length; i++){
             console.log(i, targetAllies[i].name, targetAllies[i].currentLifePoints)
         }
@@ -14,5 +16,6 @@ export default class Priest extends Character {
         if (targetAllies[targetHeal].currentLifePoints > targetAllies[targetHeal].maxLifePoints){
             targetAllies[targetHeal].currentLifePoints = targetAllies[targetHeal].maxLifePoints;
         }
+        console.log(`${this.name} heals ${targetAllies[targetHeal].name} with ${this.maxLifePoints * 0.25} life points. ${targetAllies[targetHeal].name} has ${targetAllies[targetHeal].currentLifePoints} life points left.`);
     }
 }

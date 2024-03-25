@@ -6,6 +6,7 @@ export default class Character {
     maxLifePoints : number;
     currentLifePoints : number;
     inventory : string[];
+    type : string;
 
     constructor(name : string, physicalAttack : number, physicalDefense : number, speed : number, maxLifePoints : number) {
         this.name = name;
@@ -25,6 +26,7 @@ export default class Character {
         if (target.currentLifePoints < 0) {
             target.currentLifePoints = 0;
         }
+        console.log(`${this.name} attacks ${target.name} for ${damage} damage ${target.name} has ${target.currentLifePoints} HP left`);
     }
 
     public heal(target: Character){
@@ -51,5 +53,12 @@ export default class Character {
 
     public isAlive() : boolean {
         return this.currentLifePoints > 0;
+    }
+
+    public specialAttack(target : any){
+        console.log("Special attack")
+    }
+
+    public monsterAttack(target : any){
     }
 }

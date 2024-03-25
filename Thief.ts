@@ -1,8 +1,10 @@
 import Character from "./Character.ts";
 
 export default class Thief extends Character {
+
+    type = "ally";
     
-    protected steal(){
+    specialAttack(){
         let random = Math.floor(Math.random() * 100);
         if (random < 40){
             console.log("You stole nothing !");
