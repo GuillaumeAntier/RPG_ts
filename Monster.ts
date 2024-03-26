@@ -9,13 +9,13 @@ export default class Monster extends Character {
         lifeTargets.sort((a, b) => a - b);
         let random = Math.floor(Math.random() * 100);
         if (random < 20){
-            console.log(`${this.name} attacks ${target[0].name}`);
+            console.log(`${this.name} attacks ${target[0].name} with ${this.physicalAttack - target[0].physicalDefense} points of damage. ${target[0].name} has ${target[0].currentLifePoints} life points left.`)
             target[0].currentLifePoints -= this.physicalAttack;
         } else {
             random = Math.floor(Math.random() * target.length);
             target[random].currentLifePoints -= this.physicalAttack - target[random].physicalDefense;
-            console.log(`${this.name} attacks ${target[random].name}`);
+            console.log(`${this.name} attacks ${target[random].name} with ${this.physicalAttack - target[random].physicalDefense} points of damage. ${target[random].name} has ${target[random].currentLifePoints} life points left.`)
         }
-        console.log(`${this.name} attacks ${target[random].name} with ${this.physicalAttack - target[random].physicalDefense} points of damage. ${target[random].name} has ${target[random].currentLifePoints} life points left.`)
+        
     }
 }
