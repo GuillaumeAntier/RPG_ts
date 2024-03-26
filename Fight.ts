@@ -34,28 +34,30 @@ export default class Fight{
     }
 
     displayFight(){
-        console.log("\n")
-        console.log("Allies");
+        console.clear();
+        console.log("\n");
+        console.log("\x1b[32m%s\x1b[0m","Allies");
         for (let ally of this.allies){
-            console.log(`${ally.name} : ${ally.currentLifePoints} PV`);
+            console.log(`${ally.name} : ` + "\x1b[32m" + `${ally.currentLifePoints} PV` + "\x1b[0m");
         }
         console.log("\n")
-        console.log("Ennemies");
+        console.log("\x1b[31m%s\x1b[0m","Ennemies");
         for (let ennemy of this.ennemies){
-            console.log(`${ennemy.name} : ${ennemy.currentLifePoints} PV`);
+            console.log(`${ennemy.name} : ` + "\x1b[31m" + `${ennemy.currentLifePoints} PV` + "\x1b[0m");
         }
-        console.log("\n")
     }
 
     async fight(){
         let turn = 1;
         let characters = this.getSpeedOrder();
         while (!this.isFightOver()){
-            console.log(`Turn ${turn}`);
             this.displayFight();
+            console.log("\n")
+            console.log('\x1b[33m%s\x1b[0m', `Turn ${turn}`);
             for (let character of characters){
                 if (character.isAlive()){
-                    console.log(`${character.name}'s turn`);
+                    console.log("\n")
+                    console.log('\x1b[36m%s\x1b[0m', `${character.name}'s turn`);
                     console.log("\n")
                     if ( character.type === "ally"){
                         let menu = new Menu(["Attack", "Special Attack", "Item"]);

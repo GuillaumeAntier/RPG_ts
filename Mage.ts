@@ -15,16 +15,22 @@ export default class Mage extends Character {
     }
 
     specialAttack(targets : Character[]){
+        console.log("")
         let target = targets[0];
         target.currentLifePoints -= this.magicAttack;
         this.currentManaPoints -= 10;
         if (target.currentLifePoints < 0){
             target.currentLifePoints = 0;
         }
-        console.log(`${this.name} attacks with a fire ball ${target.name} for ${this.magicAttack} damage ${target.name} has ${target.currentLifePoints} HP left`);
+        console.log("\x1b[37m%s\x1b[0m attacks with a \x1b[31m%s\x1b[0m \x1b[37m%s\x1b[0m for \x1b[31m%d\x1b[0m damage \x1b[37m%s\x1b[0m has \x1b[32m%d\x1b[0m HP left",
+        this.name, "fire ball", target.name, this.magicAttack, target.name, target.currentLifePoints);
+        console.log("")
+        console.log("\x1b[37m%s\x1b[0m has \x1b[34m%d\x1b[0m mana points left", this.name, this.currentManaPoints);
     }
 
     protected restoreMana(){
+        console.log("")
+        console.log("\x1b[37m%s\x1b[0m restores \x1b[34m%d\x1b[0m mana points", this.name, this.MaxManaPoints * 0.3);
         if (this.inventory.includes("Ether")){
             this.currentManaPoints += this.MaxManaPoints * 0.3;
             if (this.currentManaPoints > this.MaxManaPoints){

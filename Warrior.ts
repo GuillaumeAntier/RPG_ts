@@ -7,7 +7,9 @@ export default class Warrior extends Character {
 
     specialAttack(targets : Character[]){
         let target = targets[0];
-        console.log("Warrior have no special attack, he will attack normally.");
+        console.log("")
+        console.log('\x1b[33m%s\x1b[0m',"Warrior have no special attack, he will attack normally.");
+        console.log("")
         this.attack(target);
     }
 }
