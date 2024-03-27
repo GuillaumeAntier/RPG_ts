@@ -1,9 +1,9 @@
 import Character from "./Character.ts";
 
 export default class Monster extends Character {
-  type = "enemy";
+  public type = "enemy";
 
-  monsterAttack(target: Character[]) {
+  public monsterAttack(target: Character[]) {
     let aliveTargets = target.filter((target) => target.currentLifePoints > 0);
     aliveTargets.sort((a, b) => a.currentLifePoints - b.currentLifePoints);
     let random = Math.floor(Math.random() * 100);

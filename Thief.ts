@@ -1,9 +1,9 @@
 import Character from "./Character.ts";
 
 export default class Thief extends Character {
-  type = "ally";
+  public type = "ally";
 
-  specialAttack(Character: Character[]) {
+  public specialAttack(Character: Character[]) {
     console.log("");
     let random = Math.floor(Math.random() * 100);
     if (random < 40) {

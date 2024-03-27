@@ -1,9 +1,9 @@
 import Character from "./Character.ts";
 
 export default class Boss extends Character {
-  type = "enemy";
+  public type = "enemy";
 
-  monsterAttack(target: Character[]) {
+  public monsterAttack(target: Character[]) {
     let random = Math.floor(Math.random() * 100);
     if (random < 30) {
       console.log(

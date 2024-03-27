@@ -1,9 +1,9 @@
 import Character from "./Character.ts";
 
 export default class Priest extends Character {
-  type = "ally";
+  public type = "ally";
 
-  specialAttack(targetAllies: Character[]) {
+  public specialAttack(targetAllies: Character[]) {
     for (let i = 0; i < targetAllies.length; i++) {
       console.log(i, targetAllies[i].name, targetAllies[i].currentLifePoints);
     }

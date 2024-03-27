@@ -1,12 +1,12 @@
 export default class Character {
-  name: string;
-  physicalAttack: number;
-  physicalDefense: number;
-  speed: number;
-  maxLifePoints: number;
-  currentLifePoints: number;
-  inventory: string[];
-  type: string;
+  public name: string;
+  protected physicalAttack: number;
+  public physicalDefense: number;
+  public speed: number;
+  protected maxLifePoints: number;
+  public currentLifePoints: number;
+  public inventory: string[];
+  public type: string;
 
   constructor(
     name: string,

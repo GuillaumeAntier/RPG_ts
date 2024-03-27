@@ -2,28 +2,28 @@ import Character from "./Character.ts";
 import Menu from "./menu.ts";
 
 export default class Fight {
-  allies: Character[];
-  ennemies: Character[];
-  turn: number = 0;
+  private allies: Character[];
+  private ennemies: Character[];
+  protected turn: number = 0;
 
   constructor(allies: Character[], ennemies: Character[]) {
     this.allies = allies;
     this.ennemies = ennemies;
   }
 
-  getSpeedOrder() {
+  private getSpeedOrder() {
     let characters = this.allies.concat(this.ennemies);
     characters.sort((a, b) => b.speed - a.speed);
     return characters;
   }
 
-  isFightOver() {
+  private isFightOver() {
     let isAlliesAlive = this.allies.some((ally) => ally.isAlive());
     let isEnnemiesAlive = this.ennemies.some((ennemy) => ennemy.isAlive());
     return !isAlliesAlive || !isEnnemiesAlive;
   }
 
-  winner() {
+  private winner() {
     if (this.isFightOver()) {
       if (this.allies.some((ally) => ally.isAlive())) {
         return "Allies";
@@ -33,7 +33,7 @@ export default class Fight {
     }
   }
 
-  displayFight() {
+  private displayFight() {
     console.clear();
     console.log("\n");
     console.log("\x1b[32m%s\x1b[0m", "Allies");
@@ -53,7 +53,7 @@ export default class Fight {
     }
   }
 
-  targetSelection() {
+  private targetSelection() {
     let menu = new Menu(this.ennemies.map((ennemy) => ennemy.name));
     let choice = menu.selection;
     while (choice === null) {
@@ -71,7 +71,7 @@ export default class Fight {
     }
   }
 
-  async fight() {
+  public async fight() {
     let turn = 1;
     let characters = this.getSpeedOrder();
     while (!this.isFightOver()) {

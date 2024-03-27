@@ -2,9 +2,9 @@ import Character from "./Character.ts";
 import Menu from "./menu.ts";
 
 export default class Warrior extends Character {
-  type = "ally";
+  public type = "ally";
 
-  specialAttack(targets: Character[]) {
+  public specialAttack(targets: Character[]) {
     console.log("");
     console.log(
       "\x1b[33m%s\x1b[0m",

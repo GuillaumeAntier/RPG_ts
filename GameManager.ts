@@ -7,8 +7,8 @@ import Thief from "./Thief.ts";
 import Warrior from "./Warrior.ts";
 
 export default class GameManager {
-  characters: Character[] = [];
-  team: Character[] = [];
+  private characters: Character[] = [];
+  private team: Character[] = [];
 
   constructor() {
     this.characters.push(new Barbarian("Barbarian", 15, 10, 5, 100));
@@ -19,7 +19,7 @@ export default class GameManager {
     this.characters.push(new Warrior("Warrior", 15, 10, 10, 105));
   }
 
-  startGame() {
+  protected startGame() {
     console.log("Welcome to the game !");
     console.log(
       "You will have to choose 3 characters to fight against 3 ennemies.",
@@ -34,7 +34,7 @@ export default class GameManager {
     this.characterSelection();
   }
 
-  characterSelection() {
+  public characterSelection() {
     while (this.team.length < 3) {
       let character = this.chooseCharacter();
       if (character !== undefined) {
@@ -49,7 +49,7 @@ export default class GameManager {
     return this.team;
   }
 
-  chooseCharacter() {
+  private chooseCharacter() {
     console.log("Choose your character :");
     for (let i = 0; i < this.characters.length; i++) {
       console.log(`${i + 1} - ${this.characters[i].name}`);
@@ -94,6 +94,6 @@ export default class GameManager {
     return this.characters[number - 1];
   }
 
-  createEnnemies() {
+  private createEnnemies() {
   }
 }

@@ -4,7 +4,7 @@ export default class Mage extends Character {
   private magicAttack: number;
   private MaxManaPoints: number;
   private currentManaPoints: number;
-  type = "ally";
+  public type = "ally";
 
   constructor(
     name: string,
@@ -21,7 +21,7 @@ export default class Mage extends Character {
     this.currentManaPoints = MaxManaPoints;
   }
 
-  specialAttack(targets: Character[]) {
+  public specialAttack(targets: Character[]) {
     console.log("");
     let target = targets[0];
     target.currentLifePoints -= this.magicAttack;

@@ -1,9 +1,9 @@
 import Character from "./Character.ts";
 
 export default class Paladin extends Character {
-  type = "ally";
+  public type = "ally";
 
-  specialAttack(target: Character[]) {
+  public specialAttack(target: Character[]) {
     console.log(
       `${this.name} attacks all the characters with a holy light, dealing 40% of his physical attack in damage to each one.`,
     );

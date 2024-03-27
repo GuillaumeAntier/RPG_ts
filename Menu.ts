@@ -1,6 +1,6 @@
 export default class Menu {
-  selection: string | null = null;
-  public option: string[];
+  public selection: string | null = null;
+  private option: string[];
 
   constructor(option: string[]) {
     this.option = option;

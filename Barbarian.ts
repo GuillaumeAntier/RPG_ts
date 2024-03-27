@@ -1,9 +1,9 @@
 import Character from "./Character.ts";
 
 export default class Barbarian extends Character {
-  type = "ally";
+  public type = "ally";
 
-  specialAttack(target: Character[]) {
+  public specialAttack(target: Character[]) {
     console.log("");
     let random = Math.floor(Math.random() * target.length);
     let attack = Math.round(

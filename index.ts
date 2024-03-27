@@ -1,5 +1,5 @@
 import Character from "./Character.ts";
-import Fight from "./fight.ts";
+import Fight from "./Fight.ts";
 import Mage from "./mage.ts";
 import Thief from "./Thief.ts";
 import Warrior from "./Warrior.ts";
