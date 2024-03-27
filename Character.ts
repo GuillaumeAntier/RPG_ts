@@ -1,3 +1,5 @@
+import GameManager from "./GameManager.ts";
+
 export default class Character {
   public name: string;
   protected physicalAttack: number;
@@ -5,8 +7,8 @@ export default class Character {
   public speed: number;
   protected maxLifePoints: number;
   public currentLifePoints: number;
-  public inventory: string[];
   public type: string;
+  public inventory: string[];
 
   constructor(
     name: string,
@@ -14,6 +16,7 @@ export default class Character {
     physicalDefense: number,
     speed: number,
     maxLifePoints: number,
+    inventory: string[],
   ) {
     this.name = name;
     this.physicalAttack = physicalAttack;
@@ -21,6 +24,7 @@ export default class Character {
     this.speed = speed;
     this.maxLifePoints = maxLifePoints;
     this.currentLifePoints = maxLifePoints;
+    this.inventory = inventory;
   }
 
   public attack(targets: Character[]) {

@@ -23,7 +23,7 @@ export default class Fight {
     return !isAlliesAlive || !isEnnemiesAlive;
   }
 
-  private winner() {
+  public winner() {
     if (this.isFightOver()) {
       if (this.allies.some((ally) => ally.isAlive())) {
         return "Allies";
@@ -34,7 +34,6 @@ export default class Fight {
   }
 
   private displayFight() {
-    console.clear();
     console.log("\n");
     console.log("\x1b[32m%s\x1b[0m", "Allies");
     for (let ally of this.allies) {
@@ -59,11 +58,11 @@ export default class Fight {
     while (choice === null) {
       choice = menu.selection;
     }
-    if (choice === "0") {
+    if (choice === "1") {
       return [this.ennemies[0]];
-    } else if (choice === "1") {
-      return [this.ennemies[1]];
     } else if (choice === "2") {
+      return [this.ennemies[1]];
+    } else if (choice === "3") {
       return [this.ennemies[2]];
     } else {
       console.log("Invalid choice");
@@ -74,49 +73,56 @@ export default class Fight {
   public async fight() {
     let turn = 1;
     let characters = this.getSpeedOrder();
-    while (!this.isFightOver()) {
+    let playerTurn = 0;
+    while (!this.isFightOver() && playerTurn < characters.length) {
+      let character = characters[playerTurn];
       this.displayFight();
-      console.log("\n");
-      console.log("\x1b[33m%s\x1b[0m", `Turn ${turn}`);
-      for (let character of characters) {
-        if (character.isAlive()) {
-          console.log("\n");
-          console.log("\x1b[36m%s\x1b[0m", `${character.name}'s turn`);
-          console.log("\n");
-          if (character.type === "ally") {
-            let menu = new Menu(["Attack", "Special Attack", "Item"]);
-            let choice = menu.selection;
-            if (choice === "0") {
-              let target = this.targetSelection();
-              character.attack(target);
-            } else if (choice === "1") {
-              if (character.name === "Priest") {
-                character.specialAttack(this.allies);
-              } else if (character.name === "Paladin") {
-                character.specialAttack(this.ennemies);
-              } else if (character.name === "Thief") {
-                character.specialAttack(this.ennemies);
-              } else if (character.name === "Barbarian") {
-                character.specialAttack(this.ennemies);
-              } else {
-                let target = this.targetSelection();
-                character.specialAttack(target);
-              }
+      if (character.isAlive()) {
+        console.log("\n");
+        console.log("\x1b[36m%s\x1b[0m", `${character.name}'s turn`);
+        console.log("\n");
+        if (character.type === "ally") {
+          let menu = new Menu(["Attack", "Special Attack", "Item"]);
+          let choice = menu.selection;
+          if (choice === "1") {
+            let target = this.targetSelection();
+            character.attack(target);
+          } else if (choice === "2") {
+            if (character.name === "Priest") {
+              character.specialAttack(this.allies);
+            } else if (character.name === "Paladin") {
+              character.specialAttack(this.ennemies);
+            } else if (character.name === "Thief") {
+              character.specialAttack(this.ennemies);
+            } else if (character.name === "Barbarian") {
+              character.specialAttack(this.ennemies);
             } else {
-              console.log("No item available");
+              let target = this.targetSelection();
+              character.specialAttack(target);
             }
-          } else if (character.type === "enemy") {
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-            character.monsterAttack(this.allies);
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+          } else {
+            console.log("No item available");
           }
-        } else {
-          console.log(character.name + " is dead");
+        } else if (character.type === "enemy") {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          character.monsterAttack(this.allies);
+          await new Promise((resolve) => setTimeout(resolve, 1000));
         }
+      } else {
+        console.log(character.name + " is dead");
       }
-      console.log(`End of turn ${turn}`);
-      turn++;
+      playerTurn++;
+      if (playerTurn === characters.length) {
+        playerTurn = 0;
+        console.log(`End of turn ${turn}`);
+        turn++;
+        console.log("\n");
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        console.log("\x1b[33m%s\x1b[0m", `Turn ${turn}`);
+      }
     }
-    console.log(this.winner() + " won the fight");
+    console.log("\n");
+    console.log(`The fight is over, the winner is ${this.winner()}`);
+    await new Promise((resolve) => setTimeout(resolve, 3000));
   }
 }

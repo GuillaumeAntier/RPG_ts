@@ -5,32 +5,45 @@ import Paladin from "./paladin.ts";
 import Priest from "./Priest.ts";
 import Thief from "./Thief.ts";
 import Warrior from "./Warrior.ts";
+import Monster from "./Monster.ts";
+import Boss from "./Boss.ts";
+import Fight from "./Fight.ts";
 
 export default class GameManager {
   private characters: Character[] = [];
   private team: Character[] = [];
+  public teamInventory: string[] = [];
+  public items = ["Potion", "Ether", "Piece of Star", "Half Star"];
 
   constructor() {
-    this.characters.push(new Barbarian("Barbarian", 15, 10, 5, 100));
-    this.characters.push(new Mage("Mage", 10, 5, 15, 50, 20, 100));
-    this.characters.push(new Paladin("Paladin", 10, 10, 10, 100));
-    this.characters.push(new Priest("Priest", 5, 5, 15, 50));
-    this.characters.push(new Thief("Thief", 10, 5, 20, 50));
-    this.characters.push(new Warrior("Warrior", 15, 10, 10, 105));
+    this.characters.push(
+      new Barbarian("Barbarian", 15, 10, 5, 100, this.teamInventory),
+    );
+    this.characters.push(
+      new Mage("Mage", 10, 5, 15, 50, 20, 100, this.teamInventory),
+    );
+    this.characters.push(
+      new Paladin("Paladin", 100, 100, 100, 100, this.teamInventory),
+    );
+    this.characters.push(
+      new Priest("Priest", 5, 5, 15, 50, this.teamInventory),
+    );
+    this.characters.push(new Thief("Thief", 10, 5, 20, 50, this.teamInventory));
+    this.characters.push(
+      new Warrior("Warrior", 15, 10, 10, 105, this.teamInventory),
+    );
   }
 
-  protected startGame() {
+  public startGame() {
+    console.log("")
     console.log("Welcome to the game !");
+    console.log("\n")
     console.log(
       "You will have to choose 3 characters to fight against 3 ennemies.",
     );
-    console.log("You can choose between 6 characters :");
-    console.log("1 - Barbarian");
-    console.log("2 - Mage");
-    console.log("3 - Paladin");
-    console.log("4 - Priest");
-    console.log("5 - Thief");
-    console.log("6 - Warrior");
+    console.log("You will have to clear 5 rooms to win the game.");
+    console.log("Good luck !");
+    console.log("\n")
     this.characterSelection();
   }
 
@@ -46,7 +59,7 @@ export default class GameManager {
         }
       }
     }
-    return this.team;
+    this.manageRooms();
   }
 
   private chooseCharacter() {
@@ -95,5 +108,108 @@ export default class GameManager {
   }
 
   private createEnnemies() {
+    let ennemiesRoomOne = [
+      new Monster("Bat", 5, 5, 5, 20, []),
+      new Monster("Goblin", 10, 5, 5, 30, []),
+      new Monster("Rat", 5, 5, 5, 20, []),
+      new Monster("Skeleton", 10, 5, 5, 30, []),
+      new Monster("Spider", 5, 5, 5, 20, []),
+      new Monster("Slime", 10, 5, 5, 30, []),
+    ];
+    let ennemiesRoomThree = [
+      new Monster("Orc", 10, 5, 5, 40, []),
+      new Monster("Troll", 15, 5, 5, 50, []),
+      new Monster("Witch", 10, 5, 5, 40, []),
+      new Monster("Zombie", 15, 5, 5, 50, []),
+      new Monster("Ghost", 10, 5, 5, 40, []),
+      new Monster("Demon", 15, 5, 5, 50, []),
+    ];
+    let ennemiesBossRoom = [
+      new Monster("Dragon", 15, 10, 5, 60, []),
+      new Monster("Hydra", 25, 2, 5, 70, []),
+      new Monster("Giant", 10, 10, 1, 80, []),
+      new Monster("Beholder", 10, 5, 15, 50, []),
+      new Monster("Kraken", 25, 5, 3, 40, []),
+      new Monster("Chimera", 10, 5, 15, 80, []),
+    ];
+    let BossRoom = [new Boss("Boss", 20, 10, 10, 150, [])];
+    return [ennemiesRoomOne, [] , ennemiesRoomThree, [] , ennemiesBossRoom, BossRoom];
+  }
+
+  private openChest() {
+    for (let i = 0; i < this.team.length; i++) {
+      console.log(`${i + 1} - ${this.team[i].name}`);
+    }
+    let characterHowOpen = prompt("Which character will open the chest ?");
+    while (characterHowOpen === null) {
+      prompt("Which character will open the chest ?");
+    }
+    var index = parseInt(characterHowOpen);
+
+    let random = Math.floor(Math.random() * 100);
+    if (random < 20) {
+      console.log("Too bad, the chest was a trap !");
+      this.team[index - 1].currentLifePoints -= 10;
+    } else {
+      for (let i = 0; i < 2; i++) {
+        let randomItem = Math.floor(Math.random() * this.items.length);
+        this.teamInventory.push(this.items[randomItem]);
+        console.log(`You found a ${this.items[randomItem]}`);
+      }
+    }
+  }
+
+  private async manageRooms() {
+    let room = 1;
+    while (room <= 5 && this.team.length > 0) {
+      console.log("");
+      console.log(`You are in room ${room}`);
+      if (room === 2 || room === 4) {
+        this.openChest();
+      } else if (room === 5) {
+        let fightingEnemies: (Monster | Boss)[] = [];
+        let boss = this.createEnnemies()[room];
+        let ennemies = this.createEnnemies()[room - 1];
+        fightingEnemies.push(boss[0]);
+        for (let i = 0; i <2; i++) {
+            let randomEnnemy = Math.floor(Math.random() * ennemies.length);
+            if (fightingEnemies.includes(ennemies[randomEnnemy])) {
+              i--;
+              continue;
+            }
+            fightingEnemies.push(ennemies[randomEnnemy]);
+        }
+        let fight = new Fight(this.team, fightingEnemies);
+        await fight.fight();
+        if (fight.winner() === "Ennemies") {
+          console.log("You have been defeated by the boss");
+          console.log("Game Over");
+          return;
+        }
+      } else {
+        let ennemies = this.createEnnemies()[room - 1];
+        let fightingEnemies: Monster[] = [];
+        for (let i = 0; i < 3; i++) {
+          let randomEnnemy = Math.floor(Math.random() * ennemies.length);
+          if (fightingEnemies.includes(ennemies[randomEnnemy])) {
+            i--;
+            continue;
+          }
+          fightingEnemies.push(ennemies[randomEnnemy]);
+        }
+        let fight = new Fight(this.team, fightingEnemies);
+        await fight.fight();
+        if (fight.winner() === "Ennemies") {
+          console.log(`You have been defeated in room ${room}`);
+          console.log("Game Over");
+          return;
+        }
+      }
+      room++;
+      console.log("");
+      console.log("You have cleared the room !");
+    }
+    console.log("You have defeated all the ennemies !");
+    console.log("You have won the game !");
   }
 }

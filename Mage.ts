@@ -14,8 +14,16 @@ export default class Mage extends Character {
     maxLifePoints: number,
     magicAttack: number,
     MaxManaPoints: number,
+    inventory: string[],
   ) {
-    super(name, physicalAttack, physicalDefense, speed, maxLifePoints);
+    super(
+      name,
+      physicalAttack,
+      physicalDefense,
+      speed,
+      maxLifePoints,
+      inventory,
+    );
     this.magicAttack = magicAttack;
     this.MaxManaPoints = MaxManaPoints;
     this.currentManaPoints = MaxManaPoints;
