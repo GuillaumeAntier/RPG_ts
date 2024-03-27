@@ -54,8 +54,8 @@ export default class GameManager {
     for (let i = 0; i < this.characters.length; i++) {
       console.log(`${i + 1} - ${this.characters[i].name}`);
     }
-    console.log("7 : Info");
-    console.log("8 : Exit");
+    console.log("7 - Info");
+    console.log("8 - Exit");
     let choice = prompt("Choose your character :");
     while (choice == null) {
       let choice = prompt("Choose your character :");
