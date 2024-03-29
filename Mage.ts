@@ -1,5 +1,6 @@
 import Character from "./Character.ts";
 import Inventory from "./Inventory.ts";
+import Color from "./Color.ts";
 
 export default class Mage extends Character {
   public magicAttack: number;
@@ -37,21 +38,30 @@ export default class Mage extends Character {
     this.currentManaPoints -= 10;
     if (target.currentLifePoints < 0) {
       target.currentLifePoints = 0;
+      console.log(
+        "%s attacks with a %s %s for %s damage %s is dead",
+        Color.blue + this.name + Color.reset,
+        Color.red + "fireball" + Color.reset,
+        Color.cyan + target.name + Color.reset,
+        Color.red + this.magicAttack + Color.reset,
+        Color.cyan + target.name + Color.reset,
+      );
+    } else {
+      console.log(
+        "%s attacks with a %s %s for %s damage %s has %s HP left",
+        Color.blue + this.name + Color.reset,
+        Color.red + "fireball" + Color.reset,
+        Color.cyan + target.name + Color.reset,
+        Color.red + this.magicAttack + Color.reset,
+        Color.cyan + target.name + Color.reset,
+        Color.green + target.currentLifePoints + Color.reset,
+      );      
     }
-    console.log(
-      "\x1b[37m%s\x1b[0m attacks with a \x1b[31m%s\x1b[0m \x1b[37m%s\x1b[0m for \x1b[31m%d\x1b[0m damage \x1b[37m%s\x1b[0m has \x1b[32m%d\x1b[0m HP left",
-      this.name,
-      "fire ball",
-      target.name,
-      this.magicAttack,
-      target.name,
-      target.currentLifePoints,
-    );
     console.log("");
     console.log(
-      "\x1b[37m%s\x1b[0m has \x1b[34m%d\x1b[0m mana points left",
-      this.name,
-      this.currentManaPoints,
+      "%s has %s mana points left",
+      Color.blue + this.name + Color.reset,
+      Color.blue + this.currentManaPoints + Color.reset,
     );
   }
 }

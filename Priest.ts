@@ -11,13 +11,14 @@ export default class Priest extends Character {
     while (targetHeal === null) {
       prompt("Choose an ally to heal");
     }
-    targetAllies[targetHeal].currentLifePoints += this.maxLifePoints * 0.25;
+    let target = parseInt(targetHeal);
+    targetAllies[target].currentLifePoints += this.maxLifePoints * 0.25;
     if (
-      targetAllies[targetHeal].currentLifePoints >
-        targetAllies[targetHeal].maxLifePoints
+      targetAllies[target].currentLifePoints >
+        targetAllies[target].maxLifePoints
     ) {
-      targetAllies[targetHeal].currentLifePoints =
-        targetAllies[targetHeal].maxLifePoints;
+      targetAllies[target].currentLifePoints =
+        targetAllies[target].maxLifePoints;
     }
     console.log(
       `${this.name} heals ${targetAllies[targetHeal].name} with ${

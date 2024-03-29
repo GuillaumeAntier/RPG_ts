@@ -7,7 +7,7 @@ import Thief from "./Thief.ts";
 import Warrior from "./Warrior.ts";
 import Monster from "./Monster.ts";
 import Boss from "./Boss.ts";
-import Fight from "./Fight.ts";
+import Fight from "./fight.ts";
 import Inventory from "./Inventory.ts";
 
 export default class GameManager {
@@ -149,8 +149,11 @@ export default class GameManager {
       console.log(`${i + 1} - ${this.team[i].name}`);
     }
     let characterHowOpen = prompt("Which character will open the chest ?");
-    while (characterHowOpen === null) {
-      prompt("Which character will open the chest ?");
+    while (characterHowOpen === null || this.team[parseInt(characterHowOpen) - 1].isAlive() === false){
+      if (characterHowOpen !== null && this.team[parseInt(characterHowOpen) - 1].isAlive() === false){
+        console.log("This character is dead");
+      }
+      characterHowOpen = prompt("Which character will open the chest ?");
     }
     var index = parseInt(characterHowOpen);
 

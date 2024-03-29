@@ -1,6 +1,6 @@
 import Character from "./Character.ts";
-import Inventory from "./Inventory.ts";
 import Menu from "./menu.ts";
+import Color from "./Color.ts";
 
 export default class Fight {
   private allies: Character[];
@@ -36,19 +36,19 @@ export default class Fight {
 
   private displayFight() {
     console.log("\n");
-    console.log("\x1b[32m%s\x1b[0m", "Allies");
+    console.log(Color.green + "%s" + Color.reset, "Allies");
     for (let ally of this.allies) {
       console.log(
-        `${ally.name} : ` + "\x1b[32m" + `${ally.currentLifePoints} PV` +
-          "\x1b[0m",
+        `${ally.name} : ` + Color.green + `${ally.currentLifePoints} PV` +
+          Color.reset,
       );
     }
     console.log("\n");
-    console.log("\x1b[31m%s\x1b[0m", "Ennemies");
+    console.log(Color.red + "%s" + Color.reset, "Ennemies");
     for (let ennemy of this.ennemies) {
       console.log(
-        `${ennemy.name} : ` + "\x1b[31m" + `${ennemy.currentLifePoints} PV` +
-          "\x1b[0m",
+        `${ennemy.name} : ` + Color.red + `${ennemy.currentLifePoints} PV` +
+           Color.reset,
       );
     }
   }
@@ -59,21 +59,25 @@ export default class Fight {
       ennemyMenu.push(this.ennemies[i].name);
     }
     ennemyMenu.push("Return");
-    let menu = new Menu(ennemyMenu);
+    let menu = new Menu(ennemyMenu, "target");
     let choice = menu.selection;
     while (choice === null) {
       choice = menu.selection;
     }
-    if (choice === "1") {
+    if (choice === "1" && this.ennemies[0].currentLifePoints > 0) {
       return [this.ennemies[0]];
-    } else if (choice === "2") {
+    } else if (choice === "2" && this.ennemies[1].currentLifePoints > 0) {
       return [this.ennemies[1]];
-    } else if (choice === "3") {
+    } else if (choice === "3" && this.ennemies[2].currentLifePoints > 0) {
       return [this.ennemies[2]];
     } else if (choice === "4") {
       return "return";
     } else {
-      console.log("Invalid choice");
+      if (this.ennemies[parseInt(choice)-1].currentLifePoints <= 0) {
+        console.log("This ennemy is dead");
+      } else {
+        console.log("Invalid choice");
+      }
       return this.targetSelection();
     }
   }
@@ -84,17 +88,17 @@ export default class Fight {
       allyMenu.push(this.allies[i].name);
     }
     allyMenu.push("Return");
-    let menu = new Menu(allyMenu);
+    let menu = new Menu(allyMenu, "item");
     let choice = menu.selection;
     while (choice === null) {
       choice = menu.selection;
     }
     if (choice === "1") {
-      return [this.allies[0]];
+      return this.allies[0];
     } else if (choice === "2") {
-      return [this.allies[1]];
+      return this.allies[1];
     } else if (choice === "3") {
-      return [this.allies[2]];
+      return this.allies[2];
     } else if (choice === "4") {
       return "return";
     } else {
@@ -112,7 +116,7 @@ export default class Fight {
       this.displayFight();
       if (character.isAlive()) {
         console.log("\n");
-        console.log("\x1b[36m%s\x1b[0m", `${character.name}'s turn`);
+        console.log(Color.cyan + "%s" + Color.reset , `${character.name}'s turn`);
         console.log("\n");
         if (character.type === "ally") {
           let menu = new Menu(["Attack", "Special Attack", "Item"]);
@@ -168,36 +172,31 @@ export default class Fight {
             if (itemName === "Potion") {
               let target = this.allySelection();
               if (target === "return") {
-                console.log("I");
                 continue;
               }
               character.heal(target);
             } else if (itemName === "Piece of Star") {
               let target = this.allySelection();
-              if (target === "return") {
-                console.log("I");
+              if (target === "return" || !(target instanceof Character)) {
                 continue;
               }
               character.revive(target, itemName);
             } else if (itemName === "Half Star") {
               let target = this.allySelection();
-              if (target === "return") {
-                console.log("I");
+              if (target === "return" || !(target instanceof Character)) {
                 continue;
               }
               character.revive(target, itemName);
             } else if (itemName === "Ether") {
               let target = this.allySelection();
               if (target === "return") {
-                console.log("I");
                 continue;
               }
               let isDone = character.restoreMana(
                 target,
-                this.allies[playerTurn].name,
+                target.name,
               );
               if (isDone === false) {
-                console.log("I");
                 continue;
               }
             } else {
@@ -219,7 +218,7 @@ export default class Fight {
         turn++;
         console.log("\n");
         await new Promise((resolve) => setTimeout(resolve, 2000));
-        console.log("\x1b[33m%s\x1b[0m", `Turn ${turn}`);
+        console.log(Color.yellow + "%s" + Color.reset , `Turn ${turn}`);
       }
     }
     console.log("\n");

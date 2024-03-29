@@ -1,4 +1,3 @@
-import GameManager from "./GameManager.ts";
 import Inventory from "./Inventory.ts";
 import Mage from "./mage.ts";
 
@@ -7,7 +6,7 @@ export default class Character {
   protected physicalAttack: number;
   public physicalDefense: number;
   public speed: number;
-  protected maxLifePoints: number;
+  public maxLifePoints: number;
   public currentLifePoints: number;
   public type: string;
   public inventory: Inventory;
@@ -45,11 +44,14 @@ export default class Character {
   }
 
   public heal(target: Character) {
-    if (this.inventory.has("Potion") == false) {
+    if (this.inventory.has("Potion") == false || target.isAlive() == false){
+      if (target.isAlive() == false) {
+        console.log(`${target.name} is dead you can't heal him`);
+      }
       return;
     } else {
       this.inventory.remove("Potion");
-      let heal = this.maxLifePoints * 0.5;
+      let heal = target.maxLifePoints * 0.5;
       target.currentLifePoints += heal;
       console.log(`${this.name} heals ${target.name} for ${heal} HP`);
       if (target.currentLifePoints > target.maxLifePoints) {
@@ -63,7 +65,7 @@ export default class Character {
     if (this.inventory.has(item)) {
       if (item == "Piece of Star") {
         this.inventory.remove(item);
-        if (target.isAlive() == false) {
+        if (target.isAlive() === false) {
           target.currentLifePoints = target.maxLifePoints * 0.2;
           console.log(
             `${this.name} revives ${target.name} with ${target.currentLifePoints} HP`,
@@ -76,7 +78,7 @@ export default class Character {
         }
       } else if (item == "Half Star") {
         this.inventory.remove(item);
-        if (target.isAlive() == false) {
+        if (target.isAlive() === false) {
           target.currentLifePoints = target.maxLifePoints;
           console.log(
             `${this.name} revives ${target.name} with ${target.currentLifePoints} HP`,
