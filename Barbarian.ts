@@ -2,6 +2,7 @@ import Character from "./Character.ts";
 
 export default class Barbarian extends Character {
   public type = "ally";
+  public currentLifePoints = 0;
 
   public specialAttack(target: Character[]) {
     console.log("");

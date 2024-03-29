@@ -1,4 +1,6 @@
 import GameManager from "./GameManager.ts";
+import Inventory from "./Inventory.ts";
+import Mage from "./mage.ts";
 
 export default class Character {
   public name: string;
@@ -8,7 +10,7 @@ export default class Character {
   protected maxLifePoints: number;
   public currentLifePoints: number;
   public type: string;
-  public inventory: string[];
+  public inventory: Inventory;
 
   constructor(
     name: string,
@@ -16,7 +18,7 @@ export default class Character {
     physicalDefense: number,
     speed: number,
     maxLifePoints: number,
-    inventory: string[],
+    inventory: Inventory,
   ) {
     this.name = name;
     this.physicalAttack = physicalAttack;
@@ -43,24 +45,71 @@ export default class Character {
   }
 
   public heal(target: Character) {
-    let heal = this.maxLifePoints * 0.5;
-    target.currentLifePoints += heal;
-    if (target.currentLifePoints > target.maxLifePoints) {
-      target.currentLifePoints = target.maxLifePoints;
+    if (this.inventory.has("Potion") == false) {
+      return;
+    } else {
+      this.inventory.remove("Potion");
+      let heal = this.maxLifePoints * 0.5;
+      target.currentLifePoints += heal;
+      console.log(`${this.name} heals ${target.name} for ${heal} HP`);
+      if (target.currentLifePoints > target.maxLifePoints) {
+        target.currentLifePoints = target.maxLifePoints;
+      }
+      console.log(`${target.name} has ${target.currentLifePoints} HP left`);
     }
   }
 
   public revive(target: Character, item: string) {
-    if (this.inventory.includes(item)) {
+    if (this.inventory.has(item)) {
       if (item == "Piece of Star") {
-        if (this.isAlive() == false) {
+        this.inventory.remove(item);
+        if (target.isAlive() == false) {
           target.currentLifePoints = target.maxLifePoints * 0.2;
+          console.log(
+            `${this.name} revives ${target.name} with ${target.currentLifePoints} HP`,
+          );
         } else {
           target.currentLifePoints = target.maxLifePoints * 0.5;
+          console.log(
+            `${this.name} heals ${target.name} for ${target.currentLifePoints} HP`,
+          );
         }
       } else if (item == "Half Star") {
-        target.currentLifePoints = target.maxLifePoints;
+        this.inventory.remove(item);
+        if (target.isAlive() == false) {
+          target.currentLifePoints = target.maxLifePoints;
+          console.log(
+            `${this.name} revives ${target.name} with ${target.currentLifePoints} HP`,
+          );
+        } else {
+          target.currentLifePoints = target.maxLifePoints;
+          console.log(
+            `${this.name} heals ${target.name} for ${target.currentLifePoints} HP`,
+          );
+        }
       }
+    } else {
+      return;
+    }
+  }
+
+  public restoreMana(target: Mage, name: string) {
+    if (this.inventory.has("Ether") == false) {
+      return false;
+    } else if (target.name == "Mage") {
+      this.inventory.remove("Ether");
+      let mana = target.MaxManaPoints * 0.3;
+      console.log(`${name} restores ${mana} points to ${target.name}`);
+      if (target.currentManaPoints > target.MaxManaPoints) {
+        target.currentManaPoints = target.MaxManaPoints;
+      }
+      console.log(
+        `${target.name} has ${target.currentManaPoints} mana points left`,
+      );
+      return true;
+    } else {
+      console.log(`${name} doesn't have mana points`);
+      return false;
     }
   }
 

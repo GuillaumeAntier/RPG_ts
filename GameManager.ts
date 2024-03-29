@@ -8,11 +8,12 @@ import Warrior from "./Warrior.ts";
 import Monster from "./Monster.ts";
 import Boss from "./Boss.ts";
 import Fight from "./Fight.ts";
+import Inventory from "./Inventory.ts";
 
 export default class GameManager {
   private characters: Character[] = [];
   private team: Character[] = [];
-  public teamInventory: string[] = [];
+  public teamInventory = new Inventory();
   public items = ["Potion", "Ether", "Piece of Star", "Half Star"];
 
   constructor() {
@@ -35,15 +36,15 @@ export default class GameManager {
   }
 
   public startGame() {
-    console.log("")
+    console.log("");
     console.log("Welcome to the game !");
-    console.log("\n")
+    console.log("\n");
     console.log(
       "You will have to choose 3 characters to fight against 3 ennemies.",
     );
     console.log("You will have to clear 5 rooms to win the game.");
     console.log("Good luck !");
-    console.log("\n")
+    console.log("\n");
     this.characterSelection();
   }
 
@@ -109,31 +110,38 @@ export default class GameManager {
 
   private createEnnemies() {
     let ennemiesRoomOne = [
-      new Monster("Bat", 5, 5, 5, 20, []),
-      new Monster("Goblin", 10, 5, 5, 30, []),
-      new Monster("Rat", 5, 5, 5, 20, []),
-      new Monster("Skeleton", 10, 5, 5, 30, []),
-      new Monster("Spider", 5, 5, 5, 20, []),
-      new Monster("Slime", 10, 5, 5, 30, []),
+      new Monster("Bat", 5, 5, 5, 20, new Inventory()),
+      new Monster("Goblin", 10, 5, 5, 30, new Inventory()),
+      new Monster("Rat", 5, 5, 5, 20, new Inventory()),
+      new Monster("Skeleton", 10, 5, 5, 30, new Inventory()),
+      new Monster("Spider", 5, 5, 5, 20, new Inventory()),
+      new Monster("Slime", 10, 5, 5, 30, new Inventory()),
     ];
     let ennemiesRoomThree = [
-      new Monster("Orc", 10, 5, 5, 40, []),
-      new Monster("Troll", 15, 5, 5, 50, []),
-      new Monster("Witch", 10, 5, 5, 40, []),
-      new Monster("Zombie", 15, 5, 5, 50, []),
-      new Monster("Ghost", 10, 5, 5, 40, []),
-      new Monster("Demon", 15, 5, 5, 50, []),
+      new Monster("Orc", 10, 5, 5, 40, new Inventory()),
+      new Monster("Troll", 15, 5, 5, 50, new Inventory()),
+      new Monster("Witch", 10, 5, 5, 40, new Inventory()),
+      new Monster("Zombie", 15, 5, 5, 50, new Inventory()),
+      new Monster("Ghost", 10, 5, 5, 40, new Inventory()),
+      new Monster("Demon", 15, 5, 5, 50, new Inventory()),
     ];
     let ennemiesBossRoom = [
-      new Monster("Dragon", 15, 10, 5, 60, []),
-      new Monster("Hydra", 25, 2, 5, 70, []),
-      new Monster("Giant", 10, 10, 1, 80, []),
-      new Monster("Beholder", 10, 5, 15, 50, []),
-      new Monster("Kraken", 25, 5, 3, 40, []),
-      new Monster("Chimera", 10, 5, 15, 80, []),
+      new Monster("Dragon", 15, 10, 5, 60, new Inventory()),
+      new Monster("Hydra", 25, 2, 5, 70, new Inventory()),
+      new Monster("Giant", 10, 10, 1, 80, new Inventory()),
+      new Monster("Beholder", 10, 5, 15, 50, new Inventory()),
+      new Monster("Kraken", 25, 5, 3, 40, new Inventory()),
+      new Monster("Chimera", 10, 5, 15, 80, new Inventory()),
     ];
-    let BossRoom = [new Boss("Boss", 20, 10, 10, 150, [])];
-    return [ennemiesRoomOne, [] , ennemiesRoomThree, [] , ennemiesBossRoom, BossRoom];
+    let BossRoom = [new Boss("Boss", 20, 10, 10, 150, new Inventory())];
+    return [
+      ennemiesRoomOne,
+      [],
+      ennemiesRoomThree,
+      [],
+      ennemiesBossRoom,
+      BossRoom,
+    ];
   }
 
   private openChest() {
@@ -153,7 +161,7 @@ export default class GameManager {
     } else {
       for (let i = 0; i < 2; i++) {
         let randomItem = Math.floor(Math.random() * this.items.length);
-        this.teamInventory.push(this.items[randomItem]);
+        this.teamInventory.add(this.items[randomItem]);
         console.log(`You found a ${this.items[randomItem]}`);
       }
     }
@@ -171,13 +179,13 @@ export default class GameManager {
         let boss = this.createEnnemies()[room];
         let ennemies = this.createEnnemies()[room - 1];
         fightingEnemies.push(boss[0]);
-        for (let i = 0; i <2; i++) {
-            let randomEnnemy = Math.floor(Math.random() * ennemies.length);
-            if (fightingEnemies.includes(ennemies[randomEnnemy])) {
-              i--;
-              continue;
-            }
-            fightingEnemies.push(ennemies[randomEnnemy]);
+        for (let i = 0; i < 2; i++) {
+          let randomEnnemy = Math.floor(Math.random() * ennemies.length);
+          if (fightingEnemies.includes(ennemies[randomEnnemy])) {
+            i--;
+            continue;
+          }
+          fightingEnemies.push(ennemies[randomEnnemy]);
         }
         let fight = new Fight(this.team, fightingEnemies);
         await fight.fight();

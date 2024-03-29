@@ -1,9 +1,10 @@
 import Character from "./Character.ts";
+import Inventory from "./Inventory.ts";
 
 export default class Mage extends Character {
-  private magicAttack: number;
-  private MaxManaPoints: number;
-  private currentManaPoints: number;
+  public magicAttack: number;
+  public MaxManaPoints: number;
+  public currentManaPoints: number;
   public type = "ally";
 
   constructor(
@@ -14,7 +15,7 @@ export default class Mage extends Character {
     maxLifePoints: number,
     magicAttack: number,
     MaxManaPoints: number,
-    inventory: string[],
+    inventory: Inventory,
   ) {
     super(
       name,
@@ -52,20 +53,5 @@ export default class Mage extends Character {
       this.name,
       this.currentManaPoints,
     );
-  }
-
-  protected restoreMana() {
-    console.log("");
-    console.log(
-      "\x1b[37m%s\x1b[0m restores \x1b[34m%d\x1b[0m mana points",
-      this.name,
-      this.MaxManaPoints * 0.3,
-    );
-    if (this.inventory.includes("Ether")) {
-      this.currentManaPoints += this.MaxManaPoints * 0.3;
-      if (this.currentManaPoints > this.MaxManaPoints) {
-        this.currentManaPoints = this.MaxManaPoints;
-      }
-    }
   }
 }
