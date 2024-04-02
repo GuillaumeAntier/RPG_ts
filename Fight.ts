@@ -1,5 +1,5 @@
 import Character from "./Character.ts";
-import Menu from "./menu.ts";
+import Menu from "./Menu.ts";
 import Color from "./Color.ts";
 
 export default class Fight {
