@@ -149,8 +149,14 @@ export default class GameManager {
       console.log(`${i + 1} - ${this.team[i].name}`);
     }
     let characterHowOpen = prompt("Which character will open the chest ?");
-    while (characterHowOpen === null || this.team[parseInt(characterHowOpen) - 1].isAlive() === false){
-      if (characterHowOpen !== null && this.team[parseInt(characterHowOpen) - 1].isAlive() === false){
+    while (
+      characterHowOpen === null ||
+      this.team[parseInt(characterHowOpen) - 1].isAlive() === false
+    ) {
+      if (
+        characterHowOpen !== null &&
+        this.team[parseInt(characterHowOpen) - 1].isAlive() === false
+      ) {
         console.log("This character is dead");
       }
       characterHowOpen = prompt("Which character will open the chest ?");

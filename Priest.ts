@@ -1,4 +1,5 @@
 import Character from "./Character.ts";
+import Color from "./Color.ts";
 
 export default class Priest extends Character {
   public type = "ally";
@@ -21,11 +22,12 @@ export default class Priest extends Character {
         targetAllies[target].maxLifePoints;
     }
     console.log(
-      `${this.name} heals ${targetAllies[targetHeal].name} with ${
-        this.maxLifePoints * 0.25
-      } life points. ${targetAllies[targetHeal].name} has ${
-        targetAllies[targetHeal].currentLifePoints
-      } life points left.`,
+      "%s heals %s for %s points of life. %s has %s life points left.",
+      this.name,
+      Color.cyan + targetAllies[target].name + Color.reset,
+      Color.green + this.maxLifePoints * 0.25 + Color.reset,
+      Color.cyan + targetAllies[target].name + Color.reset,
+      Color.green + targetAllies[target].currentLifePoints + Color.reset,
     );
   }
 }

@@ -14,6 +14,8 @@ export default class Menu {
       console.log("Choose a target");
     } else if (this.typeOfQuestion === "item") {
       console.log("Choose an item to use");
+    } else if (this.typeOfQuestion === "action") {
+      console.log("Choose an action");
     } else {
       console.log("Choose a number");
     }

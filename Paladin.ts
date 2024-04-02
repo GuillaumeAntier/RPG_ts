@@ -8,7 +8,7 @@ export default class Paladin extends Character {
     console.log(
       "%s attacks all the characters with is %s, dealing 40%% of his physical attack in damage to each one.",
       Color.yellow + this.name + Color.reset,
-      Color.yellow + "holy light" + Color.reset
+      Color.yellow + "holy light" + Color.reset,
     );
     for (let i = 0; i < target.length; i++) {
       let attack = Math.round(

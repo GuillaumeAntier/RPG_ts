@@ -1,4 +1,5 @@
 import Character from "./Character.ts";
+import Color from "./Color.ts";
 
 export default class Monster extends Character {
   public type = "enemy";
@@ -8,32 +9,54 @@ export default class Monster extends Character {
     aliveTargets.sort((a, b) => a.currentLifePoints - b.currentLifePoints);
     let random = Math.floor(Math.random() * 100);
     if (random < 20) {
-      console.log(
-        "\x1b[31m%s\x1b[0m attacks \x1b[36m%s\x1b[0m with all his strength for \x1b[31m%d\x1b[0m points of damage. \x1b[36m%s\x1b[0m has \x1b[32m%d\x1b[0m life points left.",
-        this.name,
-        aliveTargets[0].name,
-        this.physicalAttack - aliveTargets[0].physicalDefense,
-        aliveTargets[0].name,
-        aliveTargets[0].currentLifePoints,
-      );
-      aliveTargets[0].currentLifePoints -= this.physicalAttack;
+      let attack = aliveTargets[0].currentLifePoints -= this.physicalAttack;
+      if (attack < 0) {
+        attack = 0;
+      }
       if (aliveTargets[0].currentLifePoints < 0) {
         aliveTargets[0].currentLifePoints = 0;
+        console.log(
+          "%s attacks %s with %s points of damage. %s is dead.",
+          Color.red + this.name + Color.reset,
+          Color.cyan + aliveTargets[0].name + Color.reset,
+          Color.red + attack + Color.reset,
+          Color.cyan + aliveTargets[0].name + Color.reset,
+        )
+      } else {
+        console.log(
+          "%s attacks %s with %s points of damage. %s has %s life points left.",
+          Color.red + this.name + Color.reset,
+          Color.cyan + aliveTargets[0].name + Color.reset,
+          Color.red + attack + Color.reset,
+          Color.cyan + aliveTargets[0].name + Color.reset,
+          Color.green + aliveTargets[0].currentLifePoints + Color.reset,
+        );
       }
     } else {
       random = Math.floor(Math.random() * aliveTargets.length);
-      aliveTargets[random].currentLifePoints -= this.physicalAttack -
-        aliveTargets[random].physicalDefense;
-      console.log(
-        "\x1b[31m%s\x1b[0m attacks \x1b[36m%s\x1b[0m with all his strength for \x1b[31m%d\x1b[0m points of damage. \x1b[36m%s\x1b[0m has \x1b[32m%d\x1b[0m life points left.",
-        this.name,
-        aliveTargets[random].name,
-        this.physicalAttack - aliveTargets[random].physicalDefense,
-        aliveTargets[random].name,
-        aliveTargets[random].currentLifePoints,
-      );
+      let attack = aliveTargets[random].currentLifePoints -=
+        this.physicalAttack;
+      if (attack < 0) {
+        attack = 0;
+      }
       if (aliveTargets[random].currentLifePoints < 0) {
         aliveTargets[random].currentLifePoints = 0;
+        console.log(
+          "%s attacks %s with %s points of damage. %s is dead.",
+          Color.red + this.name + Color.reset,
+          Color.cyan + aliveTargets[random].name + Color.reset,
+          Color.red + attack + Color.reset,
+          Color.cyan + aliveTargets[random].name + Color.reset,
+        );
+      } else {
+        console.log(
+          "%s attacks %s with %s points of damage. %s has %s life points left.",
+          Color.red + this.name + Color.reset,
+          Color.cyan + aliveTargets[random].name + Color.reset,
+          Color.red + attack + Color.reset,
+          Color.cyan + aliveTargets[random].name + Color.reset,
+          Color.green + aliveTargets[random].currentLifePoints + Color.reset,
+        );
       }
     }
   }

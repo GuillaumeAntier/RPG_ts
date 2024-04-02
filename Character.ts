@@ -1,5 +1,6 @@
 import Inventory from "./Inventory.ts";
 import Mage from "./mage.ts";
+import Color from "./Color.ts";
 
 export default class Character {
   public name: string;
@@ -37,14 +38,27 @@ export default class Character {
     target.currentLifePoints -= damage;
     if (target.currentLifePoints < 0) {
       target.currentLifePoints = 0;
+      console.log(
+        "$%s attacks %s for %s damage %s is dead",
+        this.name,
+        Color.cyan + target.name + Color.reset,
+        Color.red + damage + Color.reset,
+        Color.cyan + target.name + Color.reset,
+      );
+    } else {
+      console.log(
+        "$%s attacks %s for %s damage %s has %s HP left",
+        this.name,
+        Color.cyan + target.name + Color.reset,
+        Color.red + damage + Color.reset,
+        target.name,
+        Color.green + target.currentLifePoints + Color.reset,
+      );
     }
-    console.log(
-      `${this.name} attacks ${target.name} for ${damage} damage ${target.name} has ${target.currentLifePoints} HP left`,
-    );
   }
 
   public heal(target: Character) {
-    if (this.inventory.has("Potion") == false || target.isAlive() == false){
+    if (this.inventory.has("Potion") == false || target.isAlive() == false) {
       if (target.isAlive() == false) {
         console.log(`${target.name} is dead you can't heal him`);
       }
@@ -53,11 +67,20 @@ export default class Character {
       this.inventory.remove("Potion");
       let heal = target.maxLifePoints * 0.5;
       target.currentLifePoints += heal;
-      console.log(`${this.name} heals ${target.name} for ${heal} HP`);
+      console.log(
+        "%s heals %s for %s HP",
+        this.name,
+        target.name,
+        heal,
+      );
       if (target.currentLifePoints > target.maxLifePoints) {
         target.currentLifePoints = target.maxLifePoints;
       }
-      console.log(`${target.name} has ${target.currentLifePoints} HP left`);
+      console.log(
+        "$%s has %s HP left",
+        target.name,
+        Color.green + target.currentLifePoints + Color.reset,
+      );
     }
   }
 
@@ -68,12 +91,18 @@ export default class Character {
         if (target.isAlive() === false) {
           target.currentLifePoints = target.maxLifePoints * 0.2;
           console.log(
-            `${this.name} revives ${target.name} with ${target.currentLifePoints} HP`,
+            "%s revives %s with %s HP",
+            this.name,
+            Color.cyan + target.name + Color.reset,
+            Color.green + target.currentLifePoints + Color.reset,
           );
         } else {
           target.currentLifePoints = target.maxLifePoints * 0.5;
           console.log(
-            `${this.name} heals ${target.name} for ${target.currentLifePoints} HP`,
+            "%s heals %s for %s HP",
+            this.name,
+            Color.cyan + target.name + Color.reset,
+            Color.green + target.currentLifePoints + Color.reset,
           );
         }
       } else if (item == "Half Star") {
@@ -81,12 +110,18 @@ export default class Character {
         if (target.isAlive() === false) {
           target.currentLifePoints = target.maxLifePoints;
           console.log(
-            `${this.name} revives ${target.name} with ${target.currentLifePoints} HP`,
+            "$%s revives %s with %s HP",
+            this.name,
+            Color.cyan + target.name + Color.reset,
+            Color.green + target.currentLifePoints + Color.reset,
           );
         } else {
           target.currentLifePoints = target.maxLifePoints;
           console.log(
-            `${this.name} heals ${target.name} for ${target.currentLifePoints} HP`,
+            "%s heals %s for %s HP",
+            this.name,
+            Color.cyan + target.name + Color.reset,
+            Color.green + target.currentLifePoints + Color.reset,
           );
         }
       }
@@ -101,16 +136,26 @@ export default class Character {
     } else if (target.name == "Mage") {
       this.inventory.remove("Ether");
       let mana = target.MaxManaPoints * 0.3;
-      console.log(`${name} restores ${mana} points to ${target.name}`);
+      console.log(
+        "$%s restores %s points to %s",
+        this.name,
+        Color.blue + mana + Color.reset,
+        Color.cyan + target.name + Color.reset,
+      );
       if (target.currentManaPoints > target.MaxManaPoints) {
         target.currentManaPoints = target.MaxManaPoints;
       }
       console.log(
-        `${target.name} has ${target.currentManaPoints} mana points left`,
+        "%s has %s mana points left",
+        target.name,
+        Color.blue + target.currentManaPoints + Color.reset,
       );
       return true;
     } else {
-      console.log(`${name} doesn't have mana points`);
+      console.log(
+        "%s doesn't have mana points",
+        name,
+      );
       return false;
     }
   }

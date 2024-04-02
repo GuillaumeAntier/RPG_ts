@@ -48,7 +48,7 @@ export default class Fight {
     for (let ennemy of this.ennemies) {
       console.log(
         `${ennemy.name} : ` + Color.red + `${ennemy.currentLifePoints} PV` +
-           Color.reset,
+          Color.reset,
       );
     }
   }
@@ -73,7 +73,7 @@ export default class Fight {
     } else if (choice === "4") {
       return "return";
     } else {
-      if (this.ennemies[parseInt(choice)-1].currentLifePoints <= 0) {
+      if (this.ennemies[parseInt(choice) - 1].currentLifePoints <= 0) {
         console.log("This ennemy is dead");
       } else {
         console.log("Invalid choice");
@@ -116,10 +116,13 @@ export default class Fight {
       this.displayFight();
       if (character.isAlive()) {
         console.log("\n");
-        console.log(Color.cyan + "%s" + Color.reset , `${character.name}'s turn`);
+        console.log(
+          Color.cyan + "%s" + Color.reset,
+          `${character.name}'s turn`,
+        );
         console.log("\n");
         if (character.type === "ally") {
-          let menu = new Menu(["Attack", "Special Attack", "Item"]);
+          let menu = new Menu(["Attack", "Special Attack", "Item"], "action");
           let choice = menu.selection;
           if (choice === "1") {
             let target = this.targetSelection();
@@ -153,7 +156,7 @@ export default class Fight {
             if (itemMenu.length !== 0) {
               itemMenu.push("Return");
             }
-            let menu = new Menu(itemMenu);
+            let menu = new Menu(itemMenu, "item");
             while (menu.selection === null) {
               menu.selection = menu.askQuestion();
             }
@@ -218,7 +221,7 @@ export default class Fight {
         turn++;
         console.log("\n");
         await new Promise((resolve) => setTimeout(resolve, 2000));
-        console.log(Color.yellow + "%s" + Color.reset , `Turn ${turn}`);
+        console.log(Color.yellow + "%s" + Color.reset, `Turn ${turn}`);
       }
     }
     console.log("\n");

@@ -55,7 +55,7 @@ export default class Mage extends Character {
         Color.red + this.magicAttack + Color.reset,
         Color.cyan + target.name + Color.reset,
         Color.green + target.currentLifePoints + Color.reset,
-      );      
+      );
     }
     console.log("");
     console.log(

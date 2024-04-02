@@ -1,4 +1,5 @@
 import Character from "./Character.ts";
+import Color from "./Color.ts";
 
 export default class Thief extends Character {
   public type = "ally";
@@ -7,11 +8,15 @@ export default class Thief extends Character {
     console.log("");
     let random = Math.floor(Math.random() * 100);
     if (random < 40) {
-      console.log("\x1b[30m%s\x1b[0m stole nothing !", this.name);
+      console.log(
+        "%s stole nothing !", 
+        Color.black + this.name + Color.reset,
+      );
     } else if (random < 70 && random >= 40) {
       console.log(
-        "\x1b[30m%s\x1b[0m stole a" + "\x1b[35m" + " potion " + "\x1b[0m !",
-        this.name,
+        "%s stole a %s !",
+        Color.black + this.name + Color.reset,
+        Color.magenta + "potion" + Color.reset,
       );
     } else if (random < 85 && random >= 70) {
       console.log(
