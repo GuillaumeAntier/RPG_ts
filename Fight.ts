@@ -65,6 +65,10 @@ export default class Fight {
     while (choice === null) {
       choice = menu.selection;
     }
+    if (choice !== "1" && choice !== "2" && choice !== "3" && choice !== "4") {
+      console.log("Invalid choice");
+      return this.targetSelection();
+    }
     if (choice === "1" && this.ennemies[0].currentLifePoints > 0) {
       return [this.ennemies[0]];
     } else if (choice === "2" && this.ennemies[1].currentLifePoints > 0) {
@@ -73,14 +77,12 @@ export default class Fight {
       return [this.ennemies[2]];
     } else if (choice === "4") {
       return "return";
-    } else {
-      if (this.ennemies[parseInt(choice) - 1].currentLifePoints <= 0) {
+    } else if (this.ennemies[parseInt(choice) - 1].currentLifePoints <= 0) {
         console.log("This ennemy is dead");
       } else {
         console.log("Invalid choice");
       }
       return this.targetSelection();
-    }
   }
 
   private allySelection() {
