@@ -1,5 +1,4 @@
 import Character from "./Character.ts";
-import Menu from "./menu.ts";
 
 export default class Warrior extends Character {
   public type = "ally";

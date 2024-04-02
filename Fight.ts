@@ -59,7 +59,8 @@ export default class Fight {
       ennemyMenu.push(this.ennemies[i].name);
     }
     ennemyMenu.push("Return");
-    let menu = new Menu(ennemyMenu, "target");
+    console.log("Choose a target to attack:")
+    let menu = new Menu(ennemyMenu);
     let choice = menu.selection;
     while (choice === null) {
       choice = menu.selection;
@@ -88,7 +89,8 @@ export default class Fight {
       allyMenu.push(this.allies[i].name);
     }
     allyMenu.push("Return");
-    let menu = new Menu(allyMenu, "item");
+    console.log("Choose an ally to heal:")
+    let menu = new Menu(allyMenu);
     let choice = menu.selection;
     while (choice === null) {
       choice = menu.selection;
@@ -122,7 +124,8 @@ export default class Fight {
         );
         console.log("\n");
         if (character.type === "ally") {
-          let menu = new Menu(["Attack", "Special Attack", "Item"], "action");
+          console.log("Choose an action:");
+          let menu = new Menu(["Attack", "Special Attack", "Item"]);
           let choice = menu.selection;
           if (choice === "1") {
             let target = this.targetSelection();
@@ -156,7 +159,8 @@ export default class Fight {
             if (itemMenu.length !== 0) {
               itemMenu.push("Return");
             }
-            let menu = new Menu(itemMenu, "item");
+            console.log("Choose an item to use:");
+            let menu = new Menu(itemMenu);
             while (menu.selection === null) {
               menu.selection = menu.askQuestion();
             }
