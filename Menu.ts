@@ -1,3 +1,5 @@
+import chalk from 'chalk';
+
 export default class Menu {
   public selection: string | null = null;
   public option: string[];
