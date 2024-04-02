@@ -1,3 +1,5 @@
+import Color from "./Color";
+
 export default class Menu {
   public selection: string | null = null;
   public option: string[];
@@ -25,7 +27,7 @@ export default class Menu {
       return "No Item in your inventory";
     }
     for (let i = 0; i < this.option.length; i++) {
-      console.log("\x1b[36m%s\x1b[0m", i + 1 + ". " + this.option[i]);
+      console.log(Color.cyan, i + 1 + ". " + this.option[i], Color.reset);
     }
     console.log("");
     let answer = prompt("Choose a number");

@@ -20,19 +20,21 @@ export default class Thief extends Character {
       );
     } else if (random < 85 && random >= 70) {
       console.log(
-        "\x1b[30m%s\x1b[0m stole a" + "\x1b[35m" + " piece of star " +
-          "\x1b[0m !",
-        this.name,
+        "%s stole a %s !",
+        Color.black + this.name + Color.reset,
+        Color.magenta + "piece of star" + Color.reset,
       );
     } else if (random < 95 && random >= 85) {
       console.log(
-        "\x1b[30m%s\x1b[0m stole a" + "\x1b[35m" + " ether " + "\x1b[0m !",
-        this.name,
+        "%s stole an %s !",
+        Color.black + this.name + Color.reset,
+        Color.magenta + "ether" + Color.reset,
       );
     } else {
       console.log(
-        "\x1b[30m%s\x1b[0m stole an" + "\x1b[35m" + " half star " + "\x1b[0m !",
-        this.name,
+        "%s stole an %s !",
+        Color.black + this.name + Color.reset,
+        Color.magenta + "half star" + Color.reset,
       );
     }
   }
