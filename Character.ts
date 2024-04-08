@@ -2,7 +2,7 @@ import Inventory from "./Inventory.ts";
 import Mage from "./mage.ts";
 import Color from "./Color.ts";
 
-export default class Character {
+export default abstract class Character {
   public name: string;
   protected physicalAttack: number;
   public physicalDefense: number;
@@ -59,7 +59,9 @@ export default class Character {
   }
 
   public heal(target: Character) {
-    if (this.inventory.has("Potion") == false || target.isAlive() == false) {
+    if (
+      this.inventory.hasItem("Potion") == false || target.isAlive() == false
+    ) {
       if (target.isAlive() == false) {
         console.log(`${target.name} is dead you can't heal him`);
       }
@@ -86,7 +88,7 @@ export default class Character {
   }
 
   public revive(target: Character, item: string) {
-    if (this.inventory.has(item)) {
+    if (this.inventory.hasItem(item)) {
       if (item == "Piece of Star") {
         this.inventory.remove(item);
         if (target.isAlive() === false) {
@@ -131,8 +133,8 @@ export default class Character {
     }
   }
 
-  public restoreMana(target: Mage, name: string) {
-    if (this.inventory.has("Ether") == false) {
+  public restoreMana(target: Mage, name: string): boolean {
+    if (this.inventory.hasItem("Ether") == false) {
       return false;
     } else if (target.name == "Mage") {
       this.inventory.remove("Ether");
@@ -165,9 +167,5 @@ export default class Character {
     return this.currentLifePoints > 0;
   }
 
-  public specialAttack(targets: Character[]) {
-  }
-
-  public monsterAttack(target: Character[]) {
-  }
+  public abstract specialAttack(targets: Character[]): void;
 }

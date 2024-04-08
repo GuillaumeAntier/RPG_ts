@@ -13,8 +13,8 @@ import Inventory from "./Inventory.ts";
 export default class GameManager {
   private characters: Character[] = [];
   private team: Character[] = [];
-  public teamInventory = new Inventory();
-  public items = ["Potion", "Ether", "Piece of Star", "Half Star"];
+  public teamInventory: Inventory;
+  public items: string[];
 
   constructor() {
     this.characters.push(
@@ -33,6 +33,8 @@ export default class GameManager {
     this.characters.push(
       new Warrior("Warrior", 15, 10, 10, 105, this.teamInventory),
     );
+    this.teamInventory = new Inventory();
+    this.items = ["Potion", "Ether", "Piece of Star", "Half Star"];
   }
 
   public startGame() {
@@ -63,7 +65,7 @@ export default class GameManager {
     this.manageRooms();
   }
 
-  private chooseCharacter() {
+  private chooseCharacter(): Character | undefined {
     console.log("Choose your character :");
     for (let i = 0; i < this.characters.length; i++) {
       console.log(`${i + 1} - ${this.characters[i].name}`);
@@ -108,7 +110,7 @@ export default class GameManager {
     return this.characters[number - 1];
   }
 
-  private createEnnemies() {
+  private createEnnemies(): (Monster | Boss)[][] {
     let ennemiesRoomOne = [
       new Monster("Bat", 5, 5, 5, 20, new Inventory()),
       new Monster("Goblin", 10, 5, 5, 30, new Inventory()),

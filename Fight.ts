@@ -6,32 +6,35 @@ import mage from "./mage.ts";
 export default class Fight {
   private allies: Character[];
   private ennemies: Character[];
-  protected turn: number = 0;
+  protected turn: number;
 
   constructor(allies: Character[], ennemies: Character[]) {
     this.allies = allies;
     this.ennemies = ennemies;
+    this.turn = 0;
   }
 
-  private getSpeedOrder() {
+  private get SpeedOrder(): Character[] {
     let characters = this.allies.concat(this.ennemies);
     characters.sort((a, b) => b.speed - a.speed);
     return characters;
   }
 
-  private isFightOver() {
+  private isFightOver(): boolean {
     let isAlliesAlive = this.allies.some((ally) => ally.isAlive());
     let isEnnemiesAlive = this.ennemies.some((ennemy) => ennemy.isAlive());
     return !isAlliesAlive || !isEnnemiesAlive;
   }
 
-  public winner() {
+  public winner(): string {
     if (this.isFightOver()) {
       if (this.allies.some((ally) => ally.isAlive())) {
         return "Allies";
       } else {
         return "Ennemies";
       }
+    } else {
+      return "The fight is not over yet";
     }
   }
 
@@ -66,7 +69,7 @@ export default class Fight {
       ennemyMenu.push(this.ennemies[i].name);
     }
     ennemyMenu.push("Return");
-    console.log("Choose a target to attack:")
+    console.log("Choose a target to attack:");
     let menu = new Menu(ennemyMenu);
     let choice = menu.selection;
     while (choice === null) {
@@ -85,11 +88,11 @@ export default class Fight {
     } else if (choice === "4") {
       return "return";
     } else if (this.ennemies[parseInt(choice) - 1].currentLifePoints <= 0) {
-        console.log("This ennemy is dead");
-      } else {
-        console.log("Invalid choice");
-      }
-      return this.targetSelection();
+      console.log("This ennemy is dead");
+    } else {
+      console.log("Invalid choice");
+    }
+    return this.targetSelection();
   }
 
   private allySelection() {
@@ -98,7 +101,7 @@ export default class Fight {
       allyMenu.push(this.allies[i].name);
     }
     allyMenu.push("Return");
-    console.log("Choose an ally to heal:")
+    console.log("Choose an ally to heal:");
     let menu = new Menu(allyMenu);
     let choice = menu.selection;
     while (choice === null) {
@@ -120,7 +123,7 @@ export default class Fight {
 
   public async fight() {
     let turn = 1;
-    let characters = this.getSpeedOrder();
+    let characters = this.SpeedOrder;
     let playerTurn = 0;
     while (!this.isFightOver() && playerTurn < characters.length) {
       let character = characters[playerTurn];
@@ -221,7 +224,7 @@ export default class Fight {
           }
         } else if (character.type === "enemy") {
           await new Promise((resolve) => setTimeout(resolve, 1000));
-          character.monsterAttack(this.allies);
+          character.specialAttack(this.allies);
           await new Promise((resolve) => setTimeout(resolve, 1000));
         }
       } else {

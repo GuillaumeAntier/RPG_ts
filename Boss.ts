@@ -2,9 +2,9 @@ import Character from "./Character.ts";
 import Color from "./Color.ts";
 
 export default class Boss extends Character {
-  public type = "enemy";
+  public type: string = "enemy";
 
-  public monsterAttack(target: Character[]) {
+  public specialAttack(target: Character[]) {
     let random = Math.floor(Math.random() * 100);
     if (random < 30) {
       console.log(
@@ -35,7 +35,7 @@ export default class Boss extends Character {
             Color.cyan + characters.name + Color.reset,
             Color.green + characters.currentLifePoints + Color.reset,
           );
-          }
+        }
       }
     } else {
       random = Math.floor(Math.random() * target.length);
