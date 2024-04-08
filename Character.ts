@@ -4,7 +4,7 @@ import Color from "./Color.ts";
 
 export default abstract class Character {
   public name: string;
-  protected physicalAttack: number;
+  public physicalAttack: number;
   public physicalDefense: number;
   public speed: number;
   public maxLifePoints: number;

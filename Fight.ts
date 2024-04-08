@@ -39,34 +39,48 @@ export default class Fight {
   }
 
   private displayFight() {
-    console.log("\n");
-    console.log(Color.green + "%s" + Color.reset, "Allies");
+    let alliesDisplay: string[] = [];
+    let enemiesDisplay: string[] = [];
+
     for (let ally of this.allies) {
-      if (ally instanceof mage) {
-        console.log(
-          `${ally.name} : ` + Color.green + `${ally.currentLifePoints} HP` +
-            Color.reset + " / " + Color.blue + `${ally.currentManaPoints} MP` +
-            Color.reset,
+        if (ally instanceof mage) {
+            alliesDisplay.push(
+                `${ally.name} : ` + Color.green + `${ally.currentLifePoints}/${ally.maxLifePoints} HP` +
+                Color.reset + ' | ' + Color.blue + `${ally.currentManaPoints}/${ally.MaxManaPoints} MP` + Color.reset + " ".repeat(15)
+            );
+        } else {
+            alliesDisplay.push(
+                `${ally.name} : ` + Color.green + `${ally.currentLifePoints}/${ally.maxLifePoints} PV` +
+                Color.reset
+            );
+        }
+    }
+
+    for (let enemy of this.ennemies) {
+        enemiesDisplay.push(
+            `${enemy.name} : ` + Color.red + `${enemy.currentLifePoints}/${enemy.maxLifePoints} HP` +
+            Color.reset
         );
-      } else {console.log(
-          `${ally.name} : ` + Color.green + `${ally.currentLifePoints} PV` +
-            Color.reset,
-        );}
     }
+
+    let maxRows = Math.max(alliesDisplay.length, enemiesDisplay.length);
+    let display = "";
+
+    for (let i = 0; i < maxRows; i++) {
+        let allyRow = i < alliesDisplay.length ? alliesDisplay[i] : '';
+        let enemyRow = i < enemiesDisplay.length ? enemiesDisplay[i] : '';
+        display += allyRow.padEnd(50) + enemyRow + '\n';
+    }
+
     console.log("\n");
-    console.log(Color.red + "%s" + Color.reset, "Ennemies");
-    for (let ennemy of this.ennemies) {
-      console.log(
-        `${ennemy.name} : ` + Color.red + `${ennemy.currentLifePoints} HP` +
-          Color.reset,
-      );
-    }
-  }
+    console.log(Color.green + "Allies" + Color.reset + " ".repeat(35) + Color.red + "Ennemies" + Color.reset, '\n')
+    console.log(display);
+}
 
   private targetSelection() {
     let ennemyMenu: string[] = [];
     for (let i = 0; i < this.ennemies.length; i++) {
-      ennemyMenu.push(this.ennemies[i].name);
+      ennemyMenu.push(this.ennemies[i].name + " " + Color.red + this.ennemies[i].currentLifePoints + " HP" + Color.reset);
     }
     ennemyMenu.push("Return");
     console.log("Choose a target to attack:");
@@ -137,7 +151,10 @@ export default class Fight {
         console.log("\n");
         if (character.type === "ally") {
           console.log("Choose an action:");
-          let menu = new Menu(["Attack", "Special Attack", "Item"]);
+          let menu = new Menu([
+            "Attack :" + " ".repeat(10) + Color.red + `${this.allies[playerTurn].physicalAttack} Damages` + Color.reset,
+            "Special Attack",
+            "Item"]);
           let choice = menu.selection;
           if (choice === "1") {
             let target = this.targetSelection();

@@ -22,7 +22,7 @@ export default class GameManager {
       new Barbarian("Barbarian", 15, 10, 5, 100, this.teamInventory),
     );
     this.characters.push(
-      new Mage("Mage", 10, 5, 15, 50, 20, 100, this.teamInventory),
+      new Mage("Mage", 10, 5, 15, 50, 20, 50, this.teamInventory),
     );
     this.characters.push(
       new Paladin("Paladin", 100, 100, 100, 100, this.teamInventory),
