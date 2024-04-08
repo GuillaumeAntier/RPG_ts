@@ -3,6 +3,7 @@ import Color from "./Color.ts";
 
 export default class Paladin extends Character {
   public type = "ally";
+  public color = Color.yellow;
 
   public specialAttack(target: Character[]) {
     console.log(

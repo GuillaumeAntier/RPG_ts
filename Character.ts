@@ -11,6 +11,7 @@ export default class Character {
   public currentLifePoints: number;
   public type: string;
   public inventory: Inventory;
+  public color: string;
 
   constructor(
     name: string,
@@ -39,16 +40,16 @@ export default class Character {
     if (target.currentLifePoints < 0) {
       target.currentLifePoints = 0;
       console.log(
-        "$%s attacks %s for %s damage %s is dead",
-        this.name,
+        "%s attacks %s for %s damage %s is dead",
+        Color.red + this.name + Color.reset,
         Color.cyan + target.name + Color.reset,
         Color.red + damage + Color.reset,
         Color.cyan + target.name + Color.reset,
       );
     } else {
       console.log(
-        "$%s attacks %s for %s damage %s has %s HP left",
-        this.name,
+        "%s attacks %s for %s damage %s has %s HP left",
+        Color.red + this.name + Color.reset,
         Color.cyan + target.name + Color.reset,
         Color.red + damage + Color.reset,
         target.name,

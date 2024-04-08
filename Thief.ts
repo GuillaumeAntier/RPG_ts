@@ -3,6 +3,7 @@ import Color from "./Color.ts";
 
 export default class Thief extends Character {
   public type = "ally";
+  public color = Color.black;
 
   public specialAttack(Character: Character[]) {
     console.log("");
