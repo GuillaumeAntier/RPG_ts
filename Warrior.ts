@@ -8,7 +8,8 @@ export default class Warrior extends Character {
   public specialAttack(targets: Character[]) {
     console.log("");
     console.log(
-      Color.yellow + "Warrior have no special attack, he will attack normally.",
+      "%s have no special attack, he will attack normally.",
+      Color.green + this.name + Color.reset,
     );
     console.log("");
     this.attack(targets);
