@@ -41,12 +41,12 @@ export default class Fight {
     for (let ally of this.allies) {
       if (ally instanceof mage) {
         console.log(
-          `${ally.name} : ` + Color.green + `${ally.currentLifePoints} PV` +
-            Color.reset + ' ' + Color.blue + `${ally.currentManaPoints} PM` + Color.reset,
+          `${ally.name} : ` + Color.green + `${ally.currentLifePoints} HP` +
+            Color.reset + ' ' + Color.blue + `${ally.currentManaPoints} MP` + Color.reset,
         );
       }
       else console.log(
-        `${ally.name} : ` + Color.green + `${ally.currentLifePoints} PV` +
+        `${ally.name} : ` + Color.green + `${ally.currentLifePoints} HP` +
           Color.reset,
       );
     }
@@ -54,7 +54,7 @@ export default class Fight {
     console.log(Color.red + "%s" + Color.reset, "Ennemies");
     for (let ennemy of this.ennemies) {
       console.log(
-        `${ennemy.name} : ` + Color.red + `${ennemy.currentLifePoints} PV` +
+        `${ennemy.name} : ` + Color.red + `${ennemy.currentLifePoints} HP` +
           Color.reset,
       );
     }

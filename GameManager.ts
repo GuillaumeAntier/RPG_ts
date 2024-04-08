@@ -1,13 +1,13 @@
 import Character from "./Character.ts";
-import Barbarian from "./barbarian.ts";
+import Barbarian from "./Barbarian.ts";
 import Mage from "./mage.ts";
-import Paladin from "./paladin.ts";
+import Paladin from "./Paladin.ts";
 import Priest from "./Priest.ts";
 import Thief from "./Thief.ts";
 import Warrior from "./Warrior.ts";
 import Monster from "./Monster.ts";
 import Boss from "./Boss.ts";
-import Fight from "./fight.ts";
+import Fight from "./Fight.ts";
 import Inventory from "./Inventory.ts";
 
 export default class GameManager {
