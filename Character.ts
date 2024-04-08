@@ -39,7 +39,7 @@ export default class Character {
     if (target.currentLifePoints < 0) {
       target.currentLifePoints = 0;
       console.log(
-        "$%s attacks %s for %s damage %s is dead",
+        "%s attacks %s for %s damage %s is dead",
         this.name,
         Color.cyan + target.name + Color.reset,
         Color.red + damage + Color.reset,
@@ -47,7 +47,7 @@ export default class Character {
       );
     } else {
       console.log(
-        "$%s attacks %s for %s damage %s has %s HP left",
+        "%s attacks %s for %s damage %s has %s HP left",
         this.name,
         Color.cyan + target.name + Color.reset,
         Color.red + damage + Color.reset,
