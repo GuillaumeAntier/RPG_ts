@@ -3,11 +3,12 @@ import Color from "./Color.ts";
 export default class Menu {
   public selection: string | null = null;
   public option: string[];
-  public typeOfQuestion: string = "";
+  public typeOfQuestion: string;
 
   constructor(option: string[]) {
     this.option = option;
     this.selection = this.askQuestion();
+    this.typeOfQuestion = "";
   }
 
   public askQuestion() : string | null{

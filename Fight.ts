@@ -5,14 +5,15 @@ import Color from "./Color.ts";
 export default class Fight {
   private allies: Character[];
   private ennemies: Character[];
-  protected turn: number = 0;
+  protected turn: number;
 
   constructor(allies: Character[], ennemies: Character[]) {
     this.allies = allies;
     this.ennemies = ennemies;
+    this.turn = 0;
   }
 
-  private getSpeedOrder() : Character[]{
+  private get SpeedOrder() : Character[]{
     let characters = this.allies.concat(this.ennemies);
     characters.sort((a, b) => b.speed - a.speed);
     return characters;
@@ -115,7 +116,7 @@ export default class Fight {
 
   public async fight() {
     let turn = 1;
-    let characters = this.getSpeedOrder();
+    let characters = this.SpeedOrder;
     let playerTurn = 0;
     while (!this.isFightOver() && playerTurn < characters.length) {
       let character = characters[playerTurn];

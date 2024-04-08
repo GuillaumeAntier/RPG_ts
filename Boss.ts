@@ -2,7 +2,7 @@ import Character from "./Character.ts";
 import Color from "./Color.ts";
 
 export default class Boss extends Character {
-  public type = "enemy";
+  public type : string = "enemy";
 
   public monsterAttack(target: Character[]) {
     let random = Math.floor(Math.random() * 100);
