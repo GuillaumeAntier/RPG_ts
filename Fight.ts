@@ -12,25 +12,27 @@ export default class Fight {
     this.ennemies = ennemies;
   }
 
-  private getSpeedOrder() {
+  private getSpeedOrder() : Character[]{
     let characters = this.allies.concat(this.ennemies);
     characters.sort((a, b) => b.speed - a.speed);
     return characters;
   }
 
-  private isFightOver() {
+  private isFightOver() : boolean {
     let isAlliesAlive = this.allies.some((ally) => ally.isAlive());
     let isEnnemiesAlive = this.ennemies.some((ennemy) => ennemy.isAlive());
     return !isAlliesAlive || !isEnnemiesAlive;
   }
 
-  public winner() {
+  public winner() : string{
     if (this.isFightOver()) {
       if (this.allies.some((ally) => ally.isAlive())) {
         return "Allies";
       } else {
         return "Ennemies";
       }
+    } else {
+      return "The fight is not over yet";
     }
   }
 
@@ -53,7 +55,7 @@ export default class Fight {
     }
   }
 
-  private targetSelection() {
+  private targetSelection(){
     let ennemyMenu: string[] = [];
     for (let i = 0; i < this.ennemies.length; i++) {
       ennemyMenu.push(this.ennemies[i].name);

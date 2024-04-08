@@ -1,5 +1,5 @@
 import Character from "./Character.ts";
-import Barbarian from "./barbarian.ts";
+import Barbarian from "./Barbarian.ts";
 import Mage from "./mage.ts";
 import Paladin from "./paladin.ts";
 import Priest from "./Priest.ts";
@@ -7,14 +7,14 @@ import Thief from "./Thief.ts";
 import Warrior from "./Warrior.ts";
 import Monster from "./Monster.ts";
 import Boss from "./Boss.ts";
-import Fight from "./fight.ts";
+import Fight from "./Fight.ts";
 import Inventory from "./Inventory.ts";
 
 export default class GameManager {
   private characters: Character[] = [];
   private team: Character[] = [];
-  public teamInventory = new Inventory();
-  public items = ["Potion", "Ether", "Piece of Star", "Half Star"];
+  public teamInventory: Inventory;
+  public items : string[];
 
   constructor() {
     this.characters.push(
@@ -33,6 +33,8 @@ export default class GameManager {
     this.characters.push(
       new Warrior("Warrior", 15, 10, 10, 105, this.teamInventory),
     );
+    this.teamInventory = new Inventory();
+    this.items = ["Potion", "Ether", "Piece of Star", "Half Star"];
   }
 
   public startGame() {
@@ -63,7 +65,7 @@ export default class GameManager {
     this.manageRooms();
   }
 
-  private chooseCharacter() {
+  private chooseCharacter() : Character | undefined{
     console.log("Choose your character :");
     for (let i = 0; i < this.characters.length; i++) {
       console.log(`${i + 1} - ${this.characters[i].name}`);
@@ -108,7 +110,7 @@ export default class GameManager {
     return this.characters[number - 1];
   }
 
-  private createEnnemies() {
+  private createEnnemies() : (Monster | Boss)[][]{
     let ennemiesRoomOne = [
       new Monster("Bat", 5, 5, 5, 20, new Inventory()),
       new Monster("Goblin", 10, 5, 5, 30, new Inventory()),
@@ -176,7 +178,7 @@ export default class GameManager {
     }
   }
 
-  private async manageRooms() {
+  private async manageRooms(){
     let room = 1;
     while (room <= 5 && this.team.length > 0) {
       console.log("");

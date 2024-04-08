@@ -6,7 +6,7 @@ export default class Mage extends Character {
   public magicAttack: number;
   public MaxManaPoints: number;
   public currentManaPoints: number;
-  public type = "ally";
+  public type : string;
 
   constructor(
     name: string,
@@ -29,6 +29,7 @@ export default class Mage extends Character {
     this.magicAttack = magicAttack;
     this.MaxManaPoints = MaxManaPoints;
     this.currentManaPoints = MaxManaPoints;
+    this.type = "ally";
   }
 
   public specialAttack(targets: Character[]) {

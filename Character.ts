@@ -130,7 +130,7 @@ export default class Character {
     }
   }
 
-  public restoreMana(target: Mage, name: string) {
+  public restoreMana(target: Mage, name: string) : boolean {
     if (this.inventory.has("Ether") == false) {
       return false;
     } else if (target.name == "Mage") {
