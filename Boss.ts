@@ -4,7 +4,7 @@ import Color from "./Color.ts";
 export default class Boss extends Character {
   public type : string = "enemy";
 
-  public monsterAttack(target: Character[]) {
+  public specialAttack(target: Character[]) {
     let random = Math.floor(Math.random() * 100);
     if (random < 30) {
       console.log(

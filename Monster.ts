@@ -4,7 +4,7 @@ import Color from "./Color.ts";
 export default class Monster extends Character {
   public type = "enemy";
 
-  public monsterAttack(target: Character[]) {
+  public specialAttack(target: Character[]) {
     let aliveTargets = target.filter((target) => target.currentLifePoints > 0);
     aliveTargets.sort((a, b) => a.currentLifePoints - b.currentLifePoints);
     let random = Math.floor(Math.random() * 100);

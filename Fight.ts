@@ -217,7 +217,7 @@ export default class Fight {
           }
         } else if (character.type === "enemy") {
           await new Promise((resolve) => setTimeout(resolve, 1000));
-          character.monsterAttack(this.allies);
+          character.specialAttack(this.allies);
           await new Promise((resolve) => setTimeout(resolve, 1000));
         }
       } else {
