@@ -42,13 +42,13 @@ export default class Fight {
       if (ally instanceof mage) {
         console.log(
           `${ally.name} : ` + Color.green + `${ally.currentLifePoints} PV` +
-            Color.reset + ' ' + Color.blue + `${ally.currentManaPoints} PM` + Color.reset,
+            Color.reset + " " + Color.blue + `${ally.currentManaPoints} PM` +
+            Color.reset,
         );
-      }
-      else console.log(
-        `${ally.name} : ` + Color.green + `${ally.currentLifePoints} PV` +
-          Color.reset,
-      );
+      } else {console.log(
+          `${ally.name} : ` + Color.green + `${ally.currentLifePoints} PV` +
+            Color.reset,
+        );}
     }
     console.log("\n");
     console.log(Color.red + "%s" + Color.reset, "Ennemies");
@@ -66,7 +66,7 @@ export default class Fight {
       ennemyMenu.push(this.ennemies[i].name);
     }
     ennemyMenu.push("Return");
-    console.log("Choose a target to attack:")
+    console.log("Choose a target to attack:");
     let menu = new Menu(ennemyMenu);
     let choice = menu.selection;
     while (choice === null) {
@@ -85,11 +85,11 @@ export default class Fight {
     } else if (choice === "4") {
       return "return";
     } else if (this.ennemies[parseInt(choice) - 1].currentLifePoints <= 0) {
-        console.log("This ennemy is dead");
-      } else {
-        console.log("Invalid choice");
-      }
-      return this.targetSelection();
+      console.log("This ennemy is dead");
+    } else {
+      console.log("Invalid choice");
+    }
+    return this.targetSelection();
   }
 
   private allySelection() {
@@ -98,7 +98,7 @@ export default class Fight {
       allyMenu.push(this.allies[i].name);
     }
     allyMenu.push("Return");
-    console.log("Choose an ally to heal:")
+    console.log("Choose an ally to heal:");
     let menu = new Menu(allyMenu);
     let choice = menu.selection;
     while (choice === null) {

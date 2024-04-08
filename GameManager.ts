@@ -49,20 +49,30 @@ export default class GameManager {
       "You will have to clear %s to win the game.",
       Color.magenta + "5 rooms" + Color.reset,
     );
+    console.log("");
     console.log(Color.yellow + "Good luck !" + Color.reset);
-    console.log("\n");
+    console.log("");
     this.characterSelection();
   }
 
   public characterSelection() {
     while (this.team.length < 3) {
       let character = this.chooseCharacter();
-      if (character !== undefined) {
-        this.team.push(character);
-        console.log(`${character.name} has been added to your team.`);
+      if (character === "exit") {
+        return;
+      }
+      if (character !== undefined && character !== "exit") {
+        this.team.push(character as Character);
+        console.log(
+          `${(character as Character).name} has been added to your team.`,
+        );
         console.log(`Your team is now composed of :`);
         for (let i = 0; i < this.team.length; i++) {
-          console.log(`${i + 1} - ${this.team[i].name}`);
+          console.log(
+            `${this.team[i].color}${i + 1} - ${
+              this.team[i].name
+            }${Color.reset}`,
+          );
         }
       }
     }
@@ -70,26 +80,24 @@ export default class GameManager {
   }
 
   private chooseCharacter() {
-    const charactersColor = [
-      Color.red,
-      Color.blue,
-      Color.yellow,
-      Color.magenta,
-      Color.black,
-      Color.green,
-    ]
     console.log("");
     console.log("Choose your character :");
     console.log("");
     for (let i = 0; i < this.characters.length; i++) {
-      console.log(`${charactersColor[i]}${i + 1} - ${this.characters[i].name}`);
+      console.log(
+        `${this.characters[i].color}${i + 1} - ${
+          this.characters[i].name
+        }${Color.reset}`,
+      );
     }
     console.log(Color.cyan + "7 - Info" + Color.reset);
     console.log(Color.white + "8 - Exit" + Color.reset);
     console.log("");
     let choice = prompt("Choose your character :");
+    console.log("");
     while (choice == null) {
       let choice = prompt("Choose your character :");
+      console.log("");
     }
     let number = parseInt(choice);
 
@@ -121,7 +129,7 @@ export default class GameManager {
       return undefined;
     } else if (number === 8) {
       console.log("Goodbye");
-      return;
+      return "exit";
     } else if (number < 1 || number > 6) {
       console.log("Invalid choice");
       return undefined;
@@ -173,30 +181,48 @@ export default class GameManager {
     for (let i = 0; i < this.team.length; i++) {
       console.log(`${i + 1} - ${this.team[i].name}`);
     }
-    let characterHowOpen = prompt("Which character will open the chest ?");
+    console.log("");
+    let characterHowOpen = prompt(
+      "Which character will open the" + Color.yellow + " chest" + Color.reset +
+        " ?",
+    );
     while (
       characterHowOpen === null ||
+      isNaN(parseInt(characterHowOpen)) ||
+      parseInt(characterHowOpen) < 1 ||
+      parseInt(characterHowOpen) > this.team.length ||
       this.team[parseInt(characterHowOpen) - 1].isAlive() === false
     ) {
       if (
-        characterHowOpen !== null &&
+        characterHowOpen === null ||
+        isNaN(parseInt(characterHowOpen)) ||
+        parseInt(characterHowOpen) < 1 ||
+        parseInt(characterHowOpen) > this.team.length ||
         this.team[parseInt(characterHowOpen) - 1].isAlive() === false
       ) {
         console.log("This character is dead");
       }
-      characterHowOpen = prompt("Which character will open the chest ?");
+      console.log("Invalid choice");
+      characterHowOpen = prompt(
+        "Which character will open the" + Color.yellow + " chest" +
+          Color.reset + " ?",
+      );
     }
     var index = parseInt(characterHowOpen);
 
     let random = Math.floor(Math.random() * 100);
     if (random < 20) {
-      console.log("Too bad, the chest was a trap !");
+      console.log("");
+      console.log(Color.red + "Too bad, the chest was a trap !" + Color.reset);
       this.team[index - 1].currentLifePoints -= 10;
     } else {
+      console.log("");
       for (let i = 0; i < 2; i++) {
         let randomItem = Math.floor(Math.random() * this.items.length);
         this.teamInventory.add(this.items[randomItem]);
-        console.log(`You found a ${this.items[randomItem]}`);
+        console.log(
+          `You found a ${Color.magenta}${this.items[randomItem]}${Color.reset}`,
+        );
       }
     }
   }
@@ -205,7 +231,8 @@ export default class GameManager {
     let room = 1;
     while (room <= 5 && this.team.length > 0) {
       console.log("");
-      console.log(`You are in room ${room}`);
+      console.log(`${Color.cyan}You are in room ${room}${Color.reset}`);
+      console.log("");
       if (room === 2 || room === 4) {
         this.openChest();
       } else if (room === 5) {
@@ -224,8 +251,8 @@ export default class GameManager {
         let fight = new Fight(this.team, fightingEnemies);
         await fight.fight();
         if (fight.winner() === "Ennemies") {
-          console.log("You have been defeated by the boss");
-          console.log("Game Over");
+          console.log("You have been defeated by the boss ! ");
+          console.log(Color.red + "Game Over" + Color.reset);
           return;
         }
       } else {
@@ -243,7 +270,7 @@ export default class GameManager {
         await fight.fight();
         if (fight.winner() === "Ennemies") {
           console.log(`You have been defeated in room ${room}`);
-          console.log("Game Over");
+          console.log(Color.red + "Game Over" + Color.reset);
           return;
         }
       }
@@ -252,6 +279,6 @@ export default class GameManager {
       console.log("You have cleared the room !");
     }
     console.log("You have defeated all the ennemies !");
-    console.log("You have won the game !");
+    console.log(Color.yellow + "You have won the game !" + Color.reset);
   }
 }

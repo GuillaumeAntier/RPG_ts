@@ -7,13 +7,17 @@ export default class Priest extends Character {
 
   public specialAttack(targetAllies: Character[]) {
     for (let i = 0; i < targetAllies.length; i++) {
-      console.log(i+1, targetAllies[i].name, targetAllies[i].currentLifePoints);
+      console.log(
+        i + 1,
+        targetAllies[i].name,
+        targetAllies[i].currentLifePoints,
+      );
     }
     let targetHeal = prompt("Choose an ally to heal");
     while (targetHeal === null) {
       prompt("Choose an ally to heal");
     }
-    let target = parseInt(targetHeal)-1;
+    let target = parseInt(targetHeal) - 1;
     targetAllies[target].currentLifePoints += this.maxLifePoints * 0.25;
     if (
       targetAllies[target].currentLifePoints >

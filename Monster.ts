@@ -22,7 +22,7 @@ export default class Monster extends Character {
           Color.cyan + aliveTargets[0].name + Color.reset,
           Color.red + damage + Color.reset,
           Color.cyan + aliveTargets[0].name + Color.reset,
-        )
+        );
       } else {
         console.log(
           "%s attacks %s with %s points of damage. %s has %s life points left.",
