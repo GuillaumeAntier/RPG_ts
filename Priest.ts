@@ -23,7 +23,7 @@ export default class Priest extends Character {
     }
     console.log(
       "%s heals %s for %s points of life. %s has %s life points left.",
-      this.name,
+      Color.magenta + this.name + Color.reset,
       Color.cyan + targetAllies[target].name + Color.reset,
       Color.green + this.maxLifePoints * 0.25 + Color.reset,
       Color.cyan + targetAllies[target].name + Color.reset,

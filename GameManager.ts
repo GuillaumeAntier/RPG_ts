@@ -9,6 +9,7 @@ import Monster from "./Monster.ts";
 import Boss from "./Boss.ts";
 import Fight from "./fight.ts";
 import Inventory from "./Inventory.ts";
+import Color from "./Color.ts";
 
 export default class GameManager {
   private characters: Character[] = [];
@@ -37,13 +38,18 @@ export default class GameManager {
 
   public startGame() {
     console.log("");
-    console.log("Welcome to the game !");
+    console.log(Color.yellow + "Welcome to the game !" + Color.reset);
     console.log("\n");
     console.log(
-      "You will have to choose 3 characters to fight against 3 ennemies.",
+      "You will have to choose %s to fight against %s.",
+      Color.green + "3 characters" + Color.reset,
+      Color.red + "3 ennemies" + Color.reset,
     );
-    console.log("You will have to clear 5 rooms to win the game.");
-    console.log("Good luck !");
+    console.log(
+      "You will have to clear %s to win the game.",
+      Color.magenta + "5 rooms" + Color.reset,
+    );
+    console.log(Color.yellow + "Good luck !" + Color.reset);
     console.log("\n");
     this.characterSelection();
   }
@@ -64,12 +70,23 @@ export default class GameManager {
   }
 
   private chooseCharacter() {
+    const charactersColor = [
+      Color.red,
+      Color.blue,
+      Color.yellow,
+      Color.magenta,
+      Color.black,
+      Color.green,
+    ]
+    console.log("");
     console.log("Choose your character :");
+    console.log("");
     for (let i = 0; i < this.characters.length; i++) {
-      console.log(`${i + 1} - ${this.characters[i].name}`);
+      console.log(`${charactersColor[i]}${i + 1} - ${this.characters[i].name}`);
     }
-    console.log("7 - Info");
-    console.log("8 - Exit");
+    console.log(Color.cyan + "7 - Info" + Color.reset);
+    console.log(Color.white + "8 - Exit" + Color.reset);
+    console.log("");
     let choice = prompt("Choose your character :");
     while (choice == null) {
       let choice = prompt("Choose your character :");
@@ -78,20 +95,28 @@ export default class GameManager {
 
     if (number === 7) {
       console.log(
-        "Barbarian : A strong character with a lot of life points and physical attack.",
+        "%s : A strong character with a lot of life points and physical attack, but he can hurt himself.",
+        Color.red + "Barbarian" + Color.reset,
       );
       console.log(
-        "Mage : A character with a lot of magic points and magic attack.",
+        "%s : A character with a lot of magic points and magic attack.",
+        Color.blue + "Mage" + Color.reset,
       );
       console.log(
-        "Paladin : A character with a lot of versatility with a zone attack.",
-      );
-      console.log("Priest : A character with healing abilities.");
-      console.log(
-        "Thief : A character with a lot of speed and can steal items.",
+        "%s : A character with a lot of versatility with a zone attack.",
+        Color.yellow + "Paladin" + Color.reset,
       );
       console.log(
-        "Warrior : A character with a lot of physical attack and life points.",
+        "%s : A character with healing abilities.",
+        Color.magenta + "Priest" + Color.reset,
+      );
+      console.log(
+        "%s : A character with a lot of speed and can steal items.",
+        Color.black + "Thief" + Color.reset,
+      );
+      console.log(
+        "%s : A character with a lot of physical attack and life points.",
+        Color.green + "Warrior" + Color.reset,
       );
       return undefined;
     } else if (number === 8) {
