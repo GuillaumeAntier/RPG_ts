@@ -58,7 +58,9 @@ export default abstract class Character {
   }
 
   public heal(target: Character) {
-    if (this.inventory.has("Potion") == false || target.isAlive() == false) {
+    if (
+      this.inventory.hasItem("Potion") == false || target.isAlive() == false
+    ) {
       if (target.isAlive() == false) {
         console.log(`${target.name} is dead you can't heal him`);
       }
@@ -85,7 +87,7 @@ export default abstract class Character {
   }
 
   public revive(target: Character, item: string) {
-    if (this.inventory.has(item)) {
+    if (this.inventory.hasItem(item)) {
       if (item == "Piece of Star") {
         this.inventory.remove(item);
         if (target.isAlive() === false) {
@@ -130,8 +132,8 @@ export default abstract class Character {
     }
   }
 
-  public restoreMana(target: Mage, name: string) : boolean {
-    if (this.inventory.has("Ether") == false) {
+  public restoreMana(target: Mage, name: string): boolean {
+    if (this.inventory.hasItem("Ether") == false) {
       return false;
     } else if (target.name == "Mage") {
       this.inventory.remove("Ether");
@@ -164,5 +166,5 @@ export default abstract class Character {
     return this.currentLifePoints > 0;
   }
 
-  public abstract specialAttack(targets: Character[]) : void;
+  public abstract specialAttack(targets: Character[]): void;
 }

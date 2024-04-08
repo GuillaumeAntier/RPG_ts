@@ -13,19 +13,19 @@ export default class Fight {
     this.turn = 0;
   }
 
-  private get SpeedOrder() : Character[]{
+  private get SpeedOrder(): Character[] {
     let characters = this.allies.concat(this.ennemies);
     characters.sort((a, b) => b.speed - a.speed);
     return characters;
   }
 
-  private isFightOver() : boolean {
+  private isFightOver(): boolean {
     let isAlliesAlive = this.allies.some((ally) => ally.isAlive());
     let isEnnemiesAlive = this.ennemies.some((ennemy) => ennemy.isAlive());
     return !isAlliesAlive || !isEnnemiesAlive;
   }
 
-  public winner() : string{
+  public winner(): string {
     if (this.isFightOver()) {
       if (this.allies.some((ally) => ally.isAlive())) {
         return "Allies";
@@ -56,13 +56,13 @@ export default class Fight {
     }
   }
 
-  private targetSelection(){
+  private targetSelection() {
     let ennemyMenu: string[] = [];
     for (let i = 0; i < this.ennemies.length; i++) {
       ennemyMenu.push(this.ennemies[i].name);
     }
     ennemyMenu.push("Return");
-    console.log("Choose a target to attack:")
+    console.log("Choose a target to attack:");
     let menu = new Menu(ennemyMenu);
     let choice = menu.selection;
     while (choice === null) {
@@ -81,11 +81,11 @@ export default class Fight {
     } else if (choice === "4") {
       return "return";
     } else if (this.ennemies[parseInt(choice) - 1].currentLifePoints <= 0) {
-        console.log("This ennemy is dead");
-      } else {
-        console.log("Invalid choice");
-      }
-      return this.targetSelection();
+      console.log("This ennemy is dead");
+    } else {
+      console.log("Invalid choice");
+    }
+    return this.targetSelection();
   }
 
   private allySelection() {
@@ -94,7 +94,7 @@ export default class Fight {
       allyMenu.push(this.allies[i].name);
     }
     allyMenu.push("Return");
-    console.log("Choose an ally to heal:")
+    console.log("Choose an ally to heal:");
     let menu = new Menu(allyMenu);
     let choice = menu.selection;
     while (choice === null) {

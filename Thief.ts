@@ -9,7 +9,7 @@ export default class Thief extends Character {
     let random = Math.floor(Math.random() * 100);
     if (random < 40) {
       console.log(
-        "%s stole nothing !", 
+        "%s stole nothing !",
         Color.black + this.name + Color.reset,
       );
     } else if (random < 70 && random >= 40) {

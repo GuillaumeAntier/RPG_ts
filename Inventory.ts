@@ -2,7 +2,7 @@ export default class Inventory {
   public teamInventory: string[];
 
   constructor() {
-    this.teamInventory =[
+    this.teamInventory = [
       "Potion",
       "Ether",
       "Piece of Star",
@@ -21,7 +21,7 @@ export default class Inventory {
     }
   }
 
-  public has(item: string) {
+  public hasItem(item: string) {
     return this.teamInventory.includes(item);
   }
 }

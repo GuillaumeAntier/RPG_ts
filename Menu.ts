@@ -11,7 +11,7 @@ export default class Menu {
     this.typeOfQuestion = "";
   }
 
-  public askQuestion() : string | null{
+  public askQuestion(): string | null {
     if (this.option.length === 0) {
       console.log("No option available");
       return "No Item in your inventory";

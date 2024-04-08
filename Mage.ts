@@ -6,7 +6,7 @@ export default class Mage extends Character {
   public magicAttack: number;
   public MaxManaPoints: number;
   public currentManaPoints: number;
-  public type : string;
+  public type: string;
 
   constructor(
     name: string,

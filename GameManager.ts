@@ -14,7 +14,7 @@ export default class GameManager {
   private characters: Character[] = [];
   private team: Character[] = [];
   public teamInventory: Inventory;
-  public items : string[];
+  public items: string[];
 
   constructor() {
     this.characters.push(
@@ -65,7 +65,7 @@ export default class GameManager {
     this.manageRooms();
   }
 
-  private chooseCharacter() : Character | undefined{
+  private chooseCharacter(): Character | undefined {
     console.log("Choose your character :");
     for (let i = 0; i < this.characters.length; i++) {
       console.log(`${i + 1} - ${this.characters[i].name}`);
@@ -110,7 +110,7 @@ export default class GameManager {
     return this.characters[number - 1];
   }
 
-  private createEnnemies() : (Monster | Boss)[][]{
+  private createEnnemies(): (Monster | Boss)[][] {
     let ennemiesRoomOne = [
       new Monster("Bat", 5, 5, 5, 20, new Inventory()),
       new Monster("Goblin", 10, 5, 5, 30, new Inventory()),
@@ -178,7 +178,7 @@ export default class GameManager {
     }
   }
 
-  private async manageRooms(){
+  private async manageRooms() {
     let room = 1;
     while (room <= 5 && this.team.length > 0) {
       console.log("");
