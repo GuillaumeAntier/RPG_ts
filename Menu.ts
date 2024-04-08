@@ -1,6 +1,4 @@
-import Color from "./Color";
-import chalk from 'chalk';
-
+import Color from "./Color.ts";
 
 export default class Menu {
   public selection: string | null = null;

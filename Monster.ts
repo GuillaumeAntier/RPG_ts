@@ -9,17 +9,18 @@ export default class Monster extends Character {
     aliveTargets.sort((a, b) => a.currentLifePoints - b.currentLifePoints);
     let random = Math.floor(Math.random() * 100);
     if (random < 20) {
-      let attack = aliveTargets[0].currentLifePoints -= this.physicalAttack;
-      if (attack < 0) {
-        attack = 0;
+      let damage = this.physicalAttack - aliveTargets[0].physicalDefense;
+      if (damage < 0) {
+        damage = 0;
       }
+      aliveTargets[0].currentLifePoints -= damage;
       if (aliveTargets[0].currentLifePoints < 0) {
         aliveTargets[0].currentLifePoints = 0;
         console.log(
           "%s attacks %s with %s points of damage. %s is dead.",
           Color.red + this.name + Color.reset,
           Color.cyan + aliveTargets[0].name + Color.reset,
-          Color.red + attack + Color.reset,
+          Color.red + damage + Color.reset,
           Color.cyan + aliveTargets[0].name + Color.reset,
         )
       } else {
@@ -27,25 +28,25 @@ export default class Monster extends Character {
           "%s attacks %s with %s points of damage. %s has %s life points left.",
           Color.red + this.name + Color.reset,
           Color.cyan + aliveTargets[0].name + Color.reset,
-          Color.red + attack + Color.reset,
+          Color.red + damage + Color.reset,
           Color.cyan + aliveTargets[0].name + Color.reset,
           Color.green + aliveTargets[0].currentLifePoints + Color.reset,
         );
       }
     } else {
       random = Math.floor(Math.random() * aliveTargets.length);
-      let attack = aliveTargets[random].currentLifePoints -=
-        this.physicalAttack;
-      if (attack < 0) {
-        attack = 0;
+      let damage = this.physicalAttack - aliveTargets[random].physicalDefense;
+      if (damage < 0) {
+        damage = 0;
       }
+      aliveTargets[random].currentLifePoints -= damage;
       if (aliveTargets[random].currentLifePoints < 0) {
         aliveTargets[random].currentLifePoints = 0;
         console.log(
           "%s attacks %s with %s points of damage. %s is dead.",
           Color.red + this.name + Color.reset,
           Color.cyan + aliveTargets[random].name + Color.reset,
-          Color.red + attack + Color.reset,
+          Color.red + damage + Color.reset,
           Color.cyan + aliveTargets[random].name + Color.reset,
         );
       } else {
@@ -53,7 +54,7 @@ export default class Monster extends Character {
           "%s attacks %s with %s points of damage. %s has %s life points left.",
           Color.red + this.name + Color.reset,
           Color.cyan + aliveTargets[random].name + Color.reset,
-          Color.red + attack + Color.reset,
+          Color.red + damage + Color.reset,
           Color.cyan + aliveTargets[random].name + Color.reset,
           Color.green + aliveTargets[random].currentLifePoints + Color.reset,
         );
