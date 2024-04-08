@@ -2,7 +2,7 @@ import Character from "./Character.ts";
 import Color from "./Color.ts";
 
 export default class Barbarian extends Character {
-  public type : string = "ally";
+  public type: string = "ally";
   public color = Color.red;
 
   public specialAttack(target: Character[]) {

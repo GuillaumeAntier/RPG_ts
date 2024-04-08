@@ -7,7 +7,7 @@ import Thief from "./Thief.ts";
 import Warrior from "./Warrior.ts";
 import Monster from "./Monster.ts";
 import Boss from "./Boss.ts";
-import Fight from "./fight.ts";
+import Fight from "./Fight.ts";
 import Inventory from "./Inventory.ts";
 import Color from "./Color.ts";
 
@@ -81,7 +81,7 @@ export default class GameManager {
     this.manageRooms();
   }
 
-  private chooseCharacter() : Character | undefined | "exit"{
+  private chooseCharacter(): Character | undefined | "exit" {
     console.log("");
     console.log("Choose your character :");
     console.log("");
