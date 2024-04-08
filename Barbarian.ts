@@ -3,6 +3,7 @@ import Color from "./Color.ts";
 
 export default class Barbarian extends Character {
   public type = "ally";
+  public color = Color.red;
 
   public specialAttack(target: Character[]) {
     console.log("");

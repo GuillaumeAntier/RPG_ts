@@ -4,6 +4,7 @@ import Color from "./Color.ts";
 
 export default class Warrior extends Character {
   public type = "ally";
+  public color = Color.green;
 
   public specialAttack(targets: Character[]) {
     console.log("");

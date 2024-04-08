@@ -3,6 +3,7 @@ import Color from "./Color.ts";
 
 export default class Priest extends Character {
   public type = "ally";
+  public color = Color.magenta;
 
   public specialAttack(targetAllies: Character[]) {
     for (let i = 0; i < targetAllies.length; i++) {

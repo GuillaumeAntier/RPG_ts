@@ -1,6 +1,7 @@
 import Character from "./Character.ts";
 import Menu from "./Menu.ts";
 import Color from "./Color.ts";
+import mage from "./mage.ts";
 
 export default class Fight {
   private allies: Character[];
@@ -38,7 +39,13 @@ export default class Fight {
     console.log("\n");
     console.log(Color.green + "%s" + Color.reset, "Allies");
     for (let ally of this.allies) {
-      console.log(
+      if (ally instanceof mage) {
+        console.log(
+          `${ally.name} : ` + Color.green + `${ally.currentLifePoints} PV` +
+            Color.reset + ' ' + Color.blue + `${ally.currentManaPoints} PM` + Color.reset,
+        );
+      }
+      else console.log(
         `${ally.name} : ` + Color.green + `${ally.currentLifePoints} PV` +
           Color.reset,
       );
