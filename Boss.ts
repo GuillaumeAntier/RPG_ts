@@ -66,3 +66,11 @@ export default class Boss extends Character {
     }
   }
 }
+
+
+///On représente les classes abstraites avec leur nom en italique, et ses
+///méthodes abstraites également:
+
+///On peut également définir une propriété en readonly de manière à ce
+///qu'on ne puisse plus modifier cette propriété une fois le construteur
+///exécuté

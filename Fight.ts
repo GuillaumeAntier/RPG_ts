@@ -180,6 +180,10 @@ export default class Fight {
             }
           } else if (choice === "3") {
             let itemMenu: string[] = [];
+            if (this.allies[playerTurn].inventory === undefined) {
+              console.log("You have no item in your inventory");
+              continue;
+            }
             for (let item in this.allies[playerTurn].inventory.teamInventory) {
               itemMenu.push(
                 this.allies[playerTurn].inventory.teamInventory[item],
