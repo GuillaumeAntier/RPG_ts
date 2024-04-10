@@ -6,15 +6,15 @@ export default class Priest extends Character { // Priest class that extends Cha
   public type = "ally";
   public color = Color.magenta;
 
-  public specialAttack(targetAllies: Character[]) {
+  public specialAttack(targetAllies: Character[]) { // special attack method
       let allyMenu: string[] = [];
-      for (let i = 0; i < targetAllies.length; i++) {
+      for (let i = 0; i < targetAllies.length; i++) { // for each character in the target array
         let estimatedHeal = targetAllies[i].currentLifePoints ;
         estimatedHeal = targetAllies[i].currentLifePoints + this.maxLifePoints * 0.25;
-        if (estimatedHeal > targetAllies[i].maxLifePoints) {
+        if (estimatedHeal > targetAllies[i].maxLifePoints) { // if the estimated heal is greater than the max life points
           estimatedHeal = targetAllies[i].maxLifePoints - targetAllies[i].currentLifePoints;
         }
-        allyMenu.push(
+        allyMenu.push( 
           targetAllies[i].name + " " + Color.green +
             targetAllies[i].currentLifePoints + "/" +
             targetAllies[i].maxLifePoints + " HP" + Color.reset +
@@ -25,12 +25,12 @@ export default class Priest extends Character { // Priest class that extends Cha
       }
       allyMenu.push("Return");
       console.log("Choose an ally to heal:");
-      let menu = new Menu(allyMenu);
+      let menu = new Menu(allyMenu); // create a new menu with the allyMenu array
       let choice = menu.selection;
       while (choice === null) {
         choice = menu.selection;
       }
-      if (choice !== "1" && choice !== "2" && choice !== "3" && choice !== "4") {
+      if (choice !== "1" && choice !== "2" && choice !== "3" && choice !== "4") { // if the choice is not 1, 2, 3, or 4
         console.log("Invalid choice");
         return this.specialAttack(targetAllies);
       }
@@ -43,7 +43,7 @@ export default class Priest extends Character { // Priest class that extends Cha
       targetAllies[target].currentLifePoints =
         targetAllies[target].maxLifePoints;
     }
-    console.log(
+    console.log( 
       "%s heals %s for %s points of life. %s has %s life points left.",
       Color.magenta + this.name + Color.reset,
       Color.cyan + targetAllies[target].name + Color.reset,
