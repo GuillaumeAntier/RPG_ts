@@ -1,11 +1,11 @@
 import Character from "./Character.ts";
 import Color from "./Color.ts";
 
-export default class Priest extends Character {
+export default class Priest extends Character { // Priest class that extends Character
   public type = "ally";
   public color = Color.magenta;
 
-  public specialAttack(targetAllies: Character[]) {
+  public specialAttack(targetAllies: Character[]) { // special attack method
     for (let i = 0; i < targetAllies.length; i++) {
       console.log(
         i + 1,
@@ -14,7 +14,7 @@ export default class Priest extends Character {
       );
     }
     let targetHeal = prompt("Choose an ally to heal");
-    while (targetHeal === null) {
+    while (targetHeal === null) {   
       prompt("Choose an ally to heal");
     }
     let target = parseInt(targetHeal) - 1;
