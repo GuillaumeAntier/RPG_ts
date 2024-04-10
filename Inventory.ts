@@ -5,8 +5,8 @@ export default class Inventory {
     this.teamInventory = [
       "Potion",
       "Ether",
-      "Piece of star",
-      "Half star",
+      "Piece of Star",
+      "Half Star",
     ];
   }
 

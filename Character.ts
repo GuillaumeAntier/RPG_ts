@@ -100,7 +100,12 @@ export default abstract class Character {
             Color.green + target.currentLifePoints + Color.reset,
           );
         } else {
-          target.currentLifePoints = target.maxLifePoints * 0.5;
+          let heal = target.maxLifePoints * 0.5;
+          if (target.currentLifePoints + heal > target.maxLifePoints) {
+            target.currentLifePoints = target.maxLifePoints;
+          } else {
+            target.currentLifePoints = target.currentLifePoints + (target.maxLifePoints * 0.5);
+          }
           console.log(
             "%s heals %s for %s HP",
             this.name,
@@ -113,7 +118,7 @@ export default abstract class Character {
         if (target.isAlive() === false) {
           target.currentLifePoints = target.maxLifePoints;
           console.log(
-            "$%s revives %s with %s HP",
+            "%s revives %s with %s HP",
             this.name,
             Color.cyan + target.name + Color.reset,
             Color.green + target.currentLifePoints + Color.reset,
@@ -139,9 +144,14 @@ export default abstract class Character {
     } else if (target.name == "Mage") {
       this.inventory.remove("Ether");
       let mana = target.MaxManaPoints * 0.3;
+      if (target.currentManaPoints + mana > target.MaxManaPoints) {
+        target.currentManaPoints = target.MaxManaPoints;
+      } else {
+        target.currentManaPoints = target.currentManaPoints + mana;
+      }
       console.log(
-        "$%s restores %s points to %s",
-        this.name,
+        "%s restores %s points to %s",
+        this.color + this.name + Color.reset,
         Color.blue + mana + Color.reset,
         Color.cyan + target.name + Color.reset,
       );
@@ -150,7 +160,7 @@ export default abstract class Character {
       }
       console.log(
         "%s has %s mana points left",
-        target.name,
+        target.color + target.name + Color.reset,  
         Color.blue + target.currentManaPoints + Color.reset,
       );
       return true;
