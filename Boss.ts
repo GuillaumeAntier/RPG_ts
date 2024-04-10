@@ -67,7 +67,6 @@ export default class Boss extends Character {
   }
 }
 
-
 ///On représente les classes abstraites avec leur nom en italique, et ses
 ///méthodes abstraites également:
 

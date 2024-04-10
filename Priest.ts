@@ -1,23 +1,40 @@
 import Character from "./Character.ts";
 import Color from "./Color.ts";
+import Menu from "./Menu.ts";
 
 export default class Priest extends Character {
   public type = "ally";
   public color = Color.magenta;
 
   public specialAttack(targetAllies: Character[]) {
-    for (let i = 0; i < targetAllies.length; i++) {
-      console.log(
-        i + 1,
-        targetAllies[i].name,
-        targetAllies[i].currentLifePoints,
-      );
-    }
-    let targetHeal = prompt("Choose an ally to heal");
-    while (targetHeal === null) {
-      prompt("Choose an ally to heal");
-    }
-    let target = parseInt(targetHeal) - 1;
+      let allyMenu: string[] = [];
+      for (let i = 0; i < targetAllies.length; i++) {
+        let estimatedHeal = targetAllies[i].currentLifePoints ;
+        estimatedHeal = targetAllies[i].currentLifePoints + this.maxLifePoints * 0.25;
+        if (estimatedHeal > targetAllies[i].maxLifePoints) {
+          estimatedHeal = targetAllies[i].maxLifePoints - targetAllies[i].currentLifePoints;
+        }
+        allyMenu.push(
+          targetAllies[i].name + " " + Color.green +
+            targetAllies[i].currentLifePoints + "/" +
+            targetAllies[i].maxLifePoints + " HP" + Color.reset +
+            " ".repeat(10) + Color.black + "Estimated Heal" + " ".repeat(3) +
+            estimatedHeal + " HP" +
+            Color.reset,
+        );
+      }
+      allyMenu.push("Return");
+      console.log("Choose an ally to heal:");
+      let menu = new Menu(allyMenu);
+      let choice = menu.selection;
+      while (choice === null) {
+        choice = menu.selection;
+      }
+      if (choice !== "1" && choice !== "2" && choice !== "3" && choice !== "4") {
+        console.log("Invalid choice");
+        return this.specialAttack(targetAllies);
+      }
+    let target = parseInt(choice) - 1;
     targetAllies[target].currentLifePoints += this.maxLifePoints * 0.25;
     if (
       targetAllies[target].currentLifePoints >

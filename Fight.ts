@@ -43,49 +43,73 @@ export default class Fight {
     let enemiesDisplay: string[] = [];
 
     for (let ally of this.allies) {
-        if (ally instanceof mage) {
-            alliesDisplay.push(
-                `${ally.name} : ` + Color.green + `${ally.currentLifePoints}/${ally.maxLifePoints} HP` +
-                Color.reset + ' | ' + Color.blue + `${ally.currentManaPoints}/${ally.MaxManaPoints} MP` + Color.reset + " ".repeat(15)
-            );
-        } else {
-            alliesDisplay.push(
-                `${ally.name} : ` + Color.green + `${ally.currentLifePoints}/${ally.maxLifePoints} PV` +
-                Color.reset
-            );
-        }
+      if (ally instanceof mage) {
+        alliesDisplay.push(
+          `${ally.name} : ` + Color.green +
+            `${ally.currentLifePoints}/${ally.maxLifePoints} HP` +
+            Color.reset + " | " + Color.blue +
+            `${ally.currentManaPoints}/${ally.MaxManaPoints} MP` + Color.reset +
+            " ".repeat(15),
+        );
+      } else {
+        alliesDisplay.push(
+          `${ally.name} : ` + Color.green +
+            `${ally.currentLifePoints}/${ally.maxLifePoints} PV` +
+            Color.reset,
+        );
+      }
     }
 
     for (let enemy of this.ennemies) {
-        enemiesDisplay.push(
-            `${enemy.name} : ` + Color.red + `${enemy.currentLifePoints}/${enemy.maxLifePoints} HP` +
-            Color.reset
-        );
+      enemiesDisplay.push(
+        `${enemy.name} : ` + Color.red +
+          `${enemy.currentLifePoints}/${enemy.maxLifePoints} HP` +
+          Color.reset,
+      );
     }
 
     let maxRows = Math.max(alliesDisplay.length, enemiesDisplay.length);
     let display = "";
 
     for (let i = 0; i < maxRows; i++) {
-        let allyRow = i < alliesDisplay.length ? alliesDisplay[i] : '';
-        let enemyRow = i < enemiesDisplay.length ? enemiesDisplay[i] : '';
-        display += allyRow.padEnd(50) + enemyRow + '\n';
+      let allyRow = i < alliesDisplay.length ? alliesDisplay[i] : "";
+      let enemyRow = i < enemiesDisplay.length ? enemiesDisplay[i] : "";
+      display += allyRow.padEnd(50) + enemyRow + "\n";
     }
 
     console.log("\n");
-    console.log(Color.green + "Allies" + Color.reset + " ".repeat(35) + Color.red + "Ennemies" + Color.reset, '\n')
+    console.log(
+      Color.green + "Allies" + Color.reset + " ".repeat(35) + Color.red +
+        "Ennemies" + Color.reset,
+      "\n",
+    );
     console.log(display);
-}
+  }
 
-  private targetSelection(character: Character) {
+  private targetSelection(character: Character, isSpecialAttack = false) {
     let ennemyMenu: string[] = [];
     for (let i = 0; i < this.ennemies.length; i++) {
-      let estimatedDamage = this.ennemies[i].currentLifePoints - (character.physicalAttack - this.ennemies[i].physicalDefense);
+      let estimatedDamage = this.ennemies[i].currentLifePoints ;
+      if (isSpecialAttack == true && character.name === "Mage") {
+        console.log("Mage special attack")
+        estimatedDamage = this.ennemies[i].currentLifePoints - 20;
+        if (estimatedDamage < 0) {
+          estimatedDamage = 0;
+        }
+      } else {
+      estimatedDamage = this.ennemies[i].currentLifePoints -
+        (character.physicalAttack - this.ennemies[i].physicalDefense);
       if (estimatedDamage < 0) {
         estimatedDamage = 0;
       }
-      ennemyMenu.push(this.ennemies[i].name + " " + Color.red + this.ennemies[i].currentLifePoints + "/" + this.ennemies[i].maxLifePoints + " HP" + Color.reset +
-      " ".repeat(10) +  Color.black +  "Estimated life" + " ".repeat(3) + estimatedDamage + "/" + this.ennemies[i].maxLifePoints + " HP" + Color.reset
+    }
+      ennemyMenu.push(
+        this.ennemies[i].name + " " + Color.red +
+          this.ennemies[i].currentLifePoints + "/" +
+          this.ennemies[i].maxLifePoints + " HP" + Color.reset +
+          " ".repeat(10) + Color.black + "Estimated life" + " ".repeat(3) +
+          estimatedDamage + "/" + this.ennemies[i].maxLifePoints + " HP" +
+          Color.reset,
       );
     }
     ennemyMenu.push("Return");
@@ -158,9 +182,10 @@ export default class Fight {
         if (character.type === "ally") {
           console.log("Choose an action:");
           let menu = new Menu([
-            "Attack", 
+            "Attack",
             "Special Attack",
-            "Item"]);
+            "Item",
+          ]);
           let choice = menu.selection;
           if (choice === "1") {
             let target = this.targetSelection(character);
@@ -178,7 +203,7 @@ export default class Fight {
             } else if (character.name === "Barbarian") {
               character.specialAttack(this.ennemies);
             } else {
-              let target = this.targetSelection(character);
+              let target = this.targetSelection(character, true);
               if (target === "return") {
                 continue;
               }
@@ -250,7 +275,7 @@ export default class Fight {
             }
           } else {
             console.log("Invalid choice");
-            continue
+            continue;
           }
         } else if (character.type === "enemy") {
           await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -274,7 +299,4 @@ export default class Fight {
     console.log(`The fight is over, the winner is ${this.winner()}`);
     await new Promise((resolve) => setTimeout(resolve, 3000));
   }
-
 }
-
-
