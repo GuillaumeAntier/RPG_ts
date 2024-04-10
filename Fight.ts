@@ -152,7 +152,7 @@ export default class Fight {
         if (character.type === "ally") {
           console.log("Choose an action:");
           let menu = new Menu([
-            "Attack :" + " ".repeat(10) + Color.red + `${this.allies[playerTurn].physicalAttack} Damages` + Color.reset,
+            "Attack :" + " ".repeat(10) + Color.red + `${characters[playerTurn].physicalAttack} Damages` + Color.reset,
             "Special Attack",
             "Item"]);
           let choice = menu.selection;
