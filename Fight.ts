@@ -139,10 +139,53 @@ export default class Fight {
     return this.targetSelection(character);
   }
 
-  private allySelection() {
+  private allySelection(item: string) {
     let allyMenu: string[] = [];
     for (let i = 0; i < this.allies.length; i++) {
-      allyMenu.push(this.allies[i].name);
+      let heal = this.allies[i].currentLifePoints;
+      if (item === "Potion") {
+        let heal = this.allies[i].maxLifePoints * 0.5;
+        if (this.allies[i].currentLifePoints + heal > this.allies[i].maxLifePoints) {
+          heal = this.allies[i].maxLifePoints
+        }
+      } else if (item === "Ether") {
+        if (this.allies[i].name === "Mage" && this.allies[i] instanceof mage) {
+          let mage = this.allies[i] as mage;
+          let mana = mage.MaxManaPoints * 0.3;
+          if (mage.currentManaPoints + mana > mage.MaxManaPoints) {
+            mana = mage.MaxManaPoints
+          }
+        }
+      } else if (item === "Piece of Star") {
+        if (this.allies[i].currentLifePoints > 0) {
+          let heal = this.allies[i].maxLifePoints * 0.5;
+          if (this.allies[i].currentLifePoints + heal > this.allies[i].maxLifePoints) {
+            heal = this.allies[i].maxLifePoints
+          }
+        } else {
+          let heal = this.allies[i].maxLifePoints * 0.2;
+        }
+      } else if (item === "Half Star") {
+        let heal = this.allies[i].maxLifePoints;
+      }
+      if (this.allies[i] instanceof mage) {
+        let mage = this.allies[i] as mage;
+
+        allyMenu.push(        
+        this.allies[i].name + " " + Color.green + this.allies[i].currentLifePoints + "/" + 
+        this.allies[i].maxLifePoints + " HP" + Color.reset +
+         " ".repeat(10) + Color.black + "Estimated Heal" + " ".repeat(3) +
+        heal + " HP" + Color.reset +
+        " ".repeat(10) + Color.blue + mage.currentManaPoints + "/" +
+        mage.MaxManaPoints + " MP" + Color.reset,
+        );
+      }
+      allyMenu.push(
+        this.allies[i].name + " " + Color.green + this.allies[i].currentLifePoints + "/" + 
+        this.allies[i].maxLifePoints + " HP" + Color.reset +
+         " ".repeat(10) + Color.black + "Estimated Heal" + " ".repeat(3) +
+        heal + " HP" + Color.reset,
+        );
     }
     allyMenu.push("Return");
     console.log("Choose an ally to heal:");
@@ -161,7 +204,7 @@ export default class Fight {
       return "return";
     } else {
       console.log("Invalid choice");
-      return this.allySelection();
+      return this.allySelection(item);
     }
   }
 
