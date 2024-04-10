@@ -242,6 +242,9 @@ export default class Fight {
             } else {
               console.log("Invalid choice");
             }
+          } else {
+            console.log("Invalid choice");
+            continue
           }
         } else if (character.type === "enemy") {
           await new Promise((resolve) => setTimeout(resolve, 1000));

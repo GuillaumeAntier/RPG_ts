@@ -160,6 +160,9 @@
 </subject>
 </ClassItem>
 <Class id="1aa525df-f570-11ee-92a2-98597aa44051">
+<isAbstract>
+<val>1</val>
+</isAbstract>
 <name>
 <val>Character</val>
 </name>
@@ -173,10 +176,6 @@
 <ref refid="9869a61f-f572-11ee-949c-98597aa44051"/>
 <ref refid="9d62b89a-f572-11ee-a20b-98597aa44051"/>
 <ref refid="dae8fe8e-f572-11ee-aeb5-98597aa44051"/>
-<ref refid="33c1a41c-f573-11ee-9bbc-98597aa44051"/>
-<ref refid="5e27eb5f-f573-11ee-abf0-98597aa44051"/>
-<ref refid="9ac20f35-f573-11ee-a3fa-98597aa44051"/>
-<ref refid="bb8570b9-f573-11ee-8f95-98597aa44051"/>
 </reflist>
 </ownedAttribute>
 <ownedOperation>
@@ -184,6 +183,9 @@
 <ref refid="ea26d289-f572-11ee-b902-98597aa44051"/>
 <ref refid="0b860a21-f573-11ee-8c0f-98597aa44051"/>
 <ref refid="1c250ece-f573-11ee-b2c4-98597aa44051"/>
+<ref refid="d1b40551-f648-11ee-80a2-005056c00008"/>
+<ref refid="dbf87672-f648-11ee-9216-005056c00008"/>
+<ref refid="e766e9f3-f648-11ee-9263-005056c00008"/>
 </reflist>
 </ownedOperation>
 <package>
@@ -1331,38 +1333,6 @@
 <ref refid="1c250ece-f573-11ee-b2c4-98597aa44051"/>
 </ownerFormalParam>
 </Parameter>
-<Property id="33c1a41c-f573-11ee-9bbc-98597aa44051">
-<class_>
-<ref refid="1aa525df-f570-11ee-92a2-98597aa44051"/>
-</class_>
-<name>
-<val>+ restoreMana(Mage,string) : boolean</val>
-</name>
-</Property>
-<Property id="5e27eb5f-f573-11ee-abf0-98597aa44051">
-<class_>
-<ref refid="1aa525df-f570-11ee-92a2-98597aa44051"/>
-</class_>
-<name>
-<val>isAlive() : boolean</val>
-</name>
-</Property>
-<Property id="9ac20f35-f573-11ee-a3fa-98597aa44051">
-<class_>
-<ref refid="1aa525df-f570-11ee-92a2-98597aa44051"/>
-</class_>
-<name>
-<val>specialAttack()</val>
-</name>
-</Property>
-<Property id="bb8570b9-f573-11ee-8f95-98597aa44051">
-<class_>
-<ref refid="1aa525df-f570-11ee-92a2-98597aa44051"/>
-</class_>
-<name>
-<val>monsterAttack()</val>
-</name>
-</Property>
 <Property id="92b6481f-f574-11ee-be42-98597aa44051">
 <class_>
 <ref refid="231db525-f570-11ee-ad88-98597aa44051"/>
@@ -2254,5 +2224,88 @@
 <upperValue>
 <val>*</val>
 </upperValue>
+</Parameter>
+<Operation id="d1b40551-f648-11ee-80a2-005056c00008">
+<class_>
+<ref refid="1aa525df-f570-11ee-92a2-98597aa44051"/>
+</class_>
+<isAbstract>
+<val>1</val>
+</isAbstract>
+<name>
+<val>specialAttack</val>
+</name>
+</Operation>
+<Operation id="dbf87672-f648-11ee-9216-005056c00008">
+<class_>
+<ref refid="1aa525df-f570-11ee-92a2-98597aa44051"/>
+</class_>
+<name>
+<val>isAlive</val>
+</name>
+<ownedParameter>
+<reflist>
+<ref refid="dbf960c6-f648-11ee-8665-005056c00008"/>
+</reflist>
+</ownedParameter>
+</Operation>
+<Parameter id="dbf960c6-f648-11ee-8665-005056c00008">
+<direction>
+<val>return</val>
+</direction>
+<ownerFormalParam>
+<ref refid="dbf87672-f648-11ee-9216-005056c00008"/>
+</ownerFormalParam>
+<typeValue>
+<val>boolean</val>
+</typeValue>
+</Parameter>
+<Operation id="e766e9f3-f648-11ee-9263-005056c00008">
+<class_>
+<ref refid="1aa525df-f570-11ee-92a2-98597aa44051"/>
+</class_>
+<name>
+<val>restoreMana</val>
+</name>
+<ownedParameter>
+<reflist>
+<ref refid="e7682270-f648-11ee-a2f6-005056c00008"/>
+<ref refid="e768e8f8-f648-11ee-a6cd-005056c00008"/>
+<ref refid="e7695a73-f648-11ee-b48e-005056c00008"/>
+</reflist>
+</ownedParameter>
+</Operation>
+<Parameter id="e7682270-f648-11ee-a2f6-005056c00008">
+<direction>
+<val>return</val>
+</direction>
+<ownerFormalParam>
+<ref refid="e766e9f3-f648-11ee-9263-005056c00008"/>
+</ownerFormalParam>
+<typeValue>
+<val>boolean</val>
+</typeValue>
+</Parameter>
+<Parameter id="e768e8f8-f648-11ee-a6cd-005056c00008">
+<direction>
+<val>in</val>
+</direction>
+<name>
+<val>Mage</val>
+</name>
+<ownerFormalParam>
+<ref refid="e766e9f3-f648-11ee-9263-005056c00008"/>
+</ownerFormalParam>
+</Parameter>
+<Parameter id="e7695a73-f648-11ee-b48e-005056c00008">
+<direction>
+<val>in</val>
+</direction>
+<name>
+<val>string</val>
+</name>
+<ownerFormalParam>
+<ref refid="e766e9f3-f648-11ee-9263-005056c00008"/>
+</ownerFormalParam>
 </Parameter>
 </gaphor>
