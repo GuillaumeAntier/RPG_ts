@@ -284,25 +284,25 @@ export default class Fight {
             let itemName =
               this.allies[playerTurn].inventory.teamInventory[choice - 1];
             if (itemName === "Potion") {
-              let target = this.allySelection();
+              let target = this.allySelection(itemName);
               if (target === "return") {
                 continue;
               }
               character.heal(target);
             } else if (itemName === "Piece of Star") {
-              let target = this.allySelection();
+              let target = this.allySelection(itemName);
               if (target === "return" || !(target instanceof Character)) {
                 continue;
               }
               character.revive(target, itemName);
             } else if (itemName === "Half Star") {
-              let target = this.allySelection();
+              let target = this.allySelection(itemName);
               if (target === "return" || !(target instanceof Character)) {
                 continue;
               }
               character.revive(target, itemName);
             } else if (itemName === "Ether") {
-              let target = this.allySelection();
+              let target = this.allySelection(itemName);
               if (target === "return") {
                 continue;
               }
