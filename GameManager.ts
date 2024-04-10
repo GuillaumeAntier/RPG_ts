@@ -18,6 +18,7 @@ export default class GameManager {
   public items: string[];
 
   constructor() {
+    this.teamInventory = new Inventory();
     this.characters.push(
       new Barbarian("Barbarian", 15, 10, 5, 100, this.teamInventory),
     );
@@ -25,7 +26,7 @@ export default class GameManager {
       new Mage("Mage", 10, 5, 15, 50, 20, 50, this.teamInventory),
     );
     this.characters.push(
-      new Paladin("Paladin", 100, 100, 100, 100, this.teamInventory),
+      new Paladin("Paladin", 10, 10, 10, 80, this.teamInventory),
     );
     this.characters.push(
       new Priest("Priest", 5, 5, 15, 50, this.teamInventory),
@@ -34,7 +35,7 @@ export default class GameManager {
     this.characters.push(
       new Warrior("Warrior", 15, 10, 10, 105, this.teamInventory),
     );
-    this.teamInventory = new Inventory();
+    
     this.items = ["Potion", "Ether", "Piece of Star", "Half Star"];
   }
 

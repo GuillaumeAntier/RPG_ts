@@ -63,7 +63,7 @@ export default abstract class Character {
       this.inventory.hasItem("Potion") == false || target.isAlive() == false
     ) {
       if (target.isAlive() == false) {
-        console.log(`${target.name} is dead you can't heal him`);
+        console.log(`${target.color}${target.name}${Color.reset} is dead you can't heal him`);
       }
       return;
     } else {
@@ -72,16 +72,16 @@ export default abstract class Character {
       target.currentLifePoints += heal;
       console.log(
         "%s heals %s for %s HP",
-        this.name,
-        target.name,
-        heal,
+        this.color + this.name + Color.reset,
+        target.color + target.name + Color.reset,
+        Color.green + heal + Color.reset,
       );
       if (target.currentLifePoints > target.maxLifePoints) {
         target.currentLifePoints = target.maxLifePoints;
       }
       console.log(
-        "$%s has %s HP left",
-        target.name,
+        "%s has %s HP left",
+        target.color + target.name + Color.reset,
         Color.green + target.currentLifePoints + Color.reset,
       );
     }
