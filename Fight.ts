@@ -77,10 +77,16 @@ export default class Fight {
     console.log(display);
 }
 
-  private targetSelection() {
+  private targetSelection(character: Character) {
     let ennemyMenu: string[] = [];
     for (let i = 0; i < this.ennemies.length; i++) {
-      ennemyMenu.push(this.ennemies[i].name + " " + Color.red + this.ennemies[i].currentLifePoints + " HP" + Color.reset);
+      let estimatedDamage = this.ennemies[i].currentLifePoints - (character.physicalAttack - this.ennemies[i].physicalDefense);
+      if (estimatedDamage < 0) {
+        estimatedDamage = 0;
+      }
+      ennemyMenu.push(this.ennemies[i].name + " " + Color.red + this.ennemies[i].currentLifePoints + "/" + this.ennemies[i].maxLifePoints + " HP" + Color.reset +
+      " ".repeat(10) +  Color.black +  "Estimated life" + " ".repeat(3) + estimatedDamage + "/" + this.ennemies[i].maxLifePoints + " HP" + Color.reset
+      );
     }
     ennemyMenu.push("Return");
     console.log("Choose a target to attack:");
@@ -91,7 +97,7 @@ export default class Fight {
     }
     if (choice !== "1" && choice !== "2" && choice !== "3" && choice !== "4") {
       console.log("Invalid choice");
-      return this.targetSelection();
+      return this.targetSelection(character);
     }
     if (choice === "1" && this.ennemies[0].currentLifePoints > 0) {
       return [this.ennemies[0]];
@@ -106,7 +112,7 @@ export default class Fight {
     } else {
       console.log("Invalid choice");
     }
-    return this.targetSelection();
+    return this.targetSelection(character);
   }
 
   private allySelection() {
@@ -152,12 +158,12 @@ export default class Fight {
         if (character.type === "ally") {
           console.log("Choose an action:");
           let menu = new Menu([
-            "Attack :" + " ".repeat(10) + Color.red + `${this.allies[playerTurn].physicalAttack} Damages` + Color.reset,
+            "Attack", 
             "Special Attack",
             "Item"]);
           let choice = menu.selection;
           if (choice === "1") {
-            let target = this.targetSelection();
+            let target = this.targetSelection(character);
             if (target === "return") {
               continue;
             }
@@ -172,7 +178,7 @@ export default class Fight {
             } else if (character.name === "Barbarian") {
               character.specialAttack(this.ennemies);
             } else {
-              let target = this.targetSelection();
+              let target = this.targetSelection(character);
               if (target === "return") {
                 continue;
               }
@@ -261,4 +267,7 @@ export default class Fight {
     console.log(`The fight is over, the winner is ${this.winner()}`);
     await new Promise((resolve) => setTimeout(resolve, 3000));
   }
+
 }
+
+
