@@ -8,7 +8,7 @@ export default abstract class Character {
   public physicalAttack: number;
   public physicalDefense: number;
   public speed: number;
-  public maxLifePoints: number;
+  public readonly maxLifePoints: number;
   public currentLifePoints: number;
   public type: string;
   public inventory: Inventory;
