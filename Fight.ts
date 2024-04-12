@@ -88,12 +88,9 @@ export default class Fight { // Create a class named Fight
 
   private targetSelection(character: Character, isSpecialAttack = false) { // Target selection method
     let ennemyMenu: string[] = [];
-    let printed = false;
     for (let i = 0; i < this.ennemies.length; i++) { // For each ennemy in the ennemies array
       let estimatedDamage = this.ennemies[i].currentLifePoints ;
-      if (isSpecialAttack == true && character.name === "Mage" && !printed) {
-        console.log("Mage special attack")
-        printed = true;
+      if (isSpecialAttack == true && character.name === "Mage") {
         estimatedDamage = this.ennemies[i].currentLifePoints - 20;
         if (estimatedDamage < 0) { // If the estimated damage is less than 0
           estimatedDamage = 0;
