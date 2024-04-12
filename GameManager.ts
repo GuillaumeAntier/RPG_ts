@@ -203,7 +203,7 @@ export default class GameManager { // Create a class named GameManager
         parseInt(characterHowOpen) > this.team.length ||
         this.team[parseInt(characterHowOpen) - 1].isAlive() === false
       ) {
-        console.log("This character is dead");
+        console.log("Error : Invalid choice, the character is dead or does not exist");
       }
       console.log("Invalid choice");
       characterHowOpen = prompt(
