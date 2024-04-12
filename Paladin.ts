@@ -7,7 +7,7 @@ export default class Paladin extends Character { // Paladin class that extends C
 
   public specialAttack(target: Character[]) { // special attack method
     console.log(
-      "%s attacks all the characters with is %s, dealing 40%% of his physical attack in damage to each one.",
+      "%s attacks all the characters with is %s, dealing 40% of his physical attack in damage to each one.",
       Color.yellow + this.name + Color.reset,
       Color.yellow + "holy light" + Color.reset,
     );

@@ -21,7 +21,7 @@ export default class Inventory { // Inventory class
     }
   }
 
-  public hasItem(item: string) { // hasItem method
+  public hasItem(item: string) :boolean { // hasItem method
     return this.teamInventory.includes(item);
   }
 }

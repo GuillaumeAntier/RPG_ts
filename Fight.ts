@@ -317,6 +317,7 @@ export default class Fight { // Create a class named Fight
               }
             } else { // If the item is not a potion, a piece of star, a half star or an ether
               console.log("Invalid choice");
+              continue;
             }
           } else { // If the choice is not 1, 2 or 3
             console.log("Invalid choice");
