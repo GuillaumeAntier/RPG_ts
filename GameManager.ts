@@ -7,7 +7,7 @@ import Thief from "./Thief.ts";
 import Warrior from "./Warrior.ts";
 import Monster from "./Monster.ts";
 import Boss from "./Boss.ts";
-import Fight from "./Fight.ts";
+import Fight from "./fight.ts";
 import Inventory from "./Inventory.ts";
 import Color from "./Color.ts";
 
