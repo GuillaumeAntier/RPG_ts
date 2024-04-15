@@ -13,7 +13,7 @@ export default class Paladin extends Character { // Paladin class that extends C
     );
     for (let i = 0; i < target.length; i++) { // for each character in the target array
       let attack = Math.round(
-        this.physicalAttack - target[i].physicalDefense * 0.4,
+        (this.physicalAttack - target[i].physicalDefense) * 0.4,
       );
       target[i].currentLifePoints -= attack;
       if (target[i].currentLifePoints < 0) { // if the target is dead
