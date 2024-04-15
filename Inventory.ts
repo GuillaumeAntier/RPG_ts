@@ -3,10 +3,7 @@ export default class Inventory { // Inventory class
 
   constructor() {
     this.teamInventory = [
-      "Potion",
-      "Ether",
-      "Piece of Star",
-      "Half Star",
+      
     ];
   }
 
