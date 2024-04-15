@@ -61,11 +61,13 @@ export default abstract class Character {
   }
 
   public heal(target: Character) { // heal method
-    if ( 
+    if (
       this.inventory.hasItem("Potion") == false || target.isAlive() == false // if the character doesn't have a potion or the target is dead
-    ) { 
+    ) {
       if (target.isAlive() == false) { // if the target is dead
-        console.log(`${target.color}${target.name}${Color.reset} is dead you can't heal him`);
+        console.log(
+          `${target.color}${target.name}${Color.reset} is dead you can't heal him`,
+        );
       }
       return; // return
     } else { // if the character has a potion and the target is alive
@@ -106,9 +108,10 @@ export default abstract class Character {
           if (target.currentLifePoints + heal > target.maxLifePoints) { // if the target has more life points than his max life points
             target.currentLifePoints = target.maxLifePoints;
           } else { // if the target has less life points than his max life points
-            target.currentLifePoints = target.currentLifePoints + (target.maxLifePoints * 0.5);
+            target.currentLifePoints = target.currentLifePoints +
+              (target.maxLifePoints * 0.5);
           }
-          console.log( 
+          console.log(
             "%s heals %s for %s HP",
             this.name,
             Color.cyan + target.name + Color.reset,
@@ -135,7 +138,7 @@ export default abstract class Character {
           );
         }
       }
-    } else {  // if the character doesn't have the item
+    } else { // if the character doesn't have the item
       return;
     }
   }
@@ -162,7 +165,7 @@ export default abstract class Character {
       }
       console.log(
         "%s has %s mana points left",
-        target.color + target.name + Color.reset,  
+        target.color + target.name + Color.reset,
         Color.blue + target.currentManaPoints + Color.reset,
       );
       return true;

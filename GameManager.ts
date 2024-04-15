@@ -35,7 +35,7 @@ export default class GameManager { // Create a class named GameManager
     this.characters.push(
       new Warrior("Warrior", 15, 10, 10, 105, this.teamInventory),
     );
-    
+
     this.items = ["Potion", "Ether", "Piece of Star", "Half Star"];
   }
 
@@ -189,21 +189,25 @@ export default class GameManager { // Create a class named GameManager
       "Which character will open the" + Color.yellow + " chest" + Color.reset +
         " ?",
     );
-    while ( // while the characterHowOpen is null, not a number, less than 1, greater than the team length or the character is dead
+    while (
+      // while the characterHowOpen is null, not a number, less than 1, greater than the team length or the character is dead
       characterHowOpen === null ||
       isNaN(parseInt(characterHowOpen)) ||
       parseInt(characterHowOpen) < 1 ||
       parseInt(characterHowOpen) > this.team.length ||
       this.team[parseInt(characterHowOpen) - 1].isAlive() === false
     ) {
-      if ( // if the character is dead 
+      if (
+        // if the character is dead
         characterHowOpen === null ||
         isNaN(parseInt(characterHowOpen)) ||
         parseInt(characterHowOpen) < 1 ||
         parseInt(characterHowOpen) > this.team.length ||
         this.team[parseInt(characterHowOpen) - 1].isAlive() === false
       ) {
-        console.log("Error : Invalid choice, the character is dead or does not exist");
+        console.log(
+          "Error : Invalid choice, the character is dead or does not exist",
+        );
       }
       console.log("Invalid choice");
       characterHowOpen = prompt(
@@ -213,7 +217,7 @@ export default class GameManager { // Create a class named GameManager
     }
     var index = parseInt(characterHowOpen); // index variable
 
-    let random = Math.floor(Math.random() * 100);   // random number between 0 and 100
+    let random = Math.floor(Math.random() * 100); // random number between 0 and 100
     if (random < 20) { // if random number is less than 20
       console.log("");
       console.log(Color.red + "Too bad, the chest was a trap !" + Color.reset);
@@ -224,7 +228,7 @@ export default class GameManager { // Create a class named GameManager
         let randomItem = Math.floor(Math.random() * this.items.length); // random number between 0 and the length of the items array
         this.teamInventory.add(this.items[randomItem]);
         console.log(
-          `You found a ${Color.magenta}${this.items[randomItem]}${Color.reset}`, 
+          `You found a ${Color.magenta}${this.items[randomItem]}${Color.reset}`,
         );
       }
     }
@@ -238,7 +242,7 @@ export default class GameManager { // Create a class named GameManager
       console.log("");
       if (room === 2 || room === 4) { // if the room is equal to 2 or 4
         this.openChest();
-      } else if (room === 5) { // if the room is equal to 5 
+      } else if (room === 5) { // if the room is equal to 5
         let fightingEnemies: (Monster | Boss)[] = []; // fightingEnemies array
         let boss = this.createEnnemies()[room]; // boss variable
         let ennemies = this.createEnnemies()[room - 1]; // ennemies variable

@@ -6,8 +6,8 @@ export default class Boss extends Character {
   public type: string = "enemy";
 
   public specialAttack(target: Character[]) { // special attack method
-    let random = Math.floor(Math.random() * 100);  // random number between 0 and 100
-    if (random < 30) {  // if random number is less than 30
+    let random = Math.floor(Math.random() * 100); // random number between 0 and 100
+    if (random < 30) { // if random number is less than 30
       console.log(
         "%s attacks all the characters with 40% of his physical attack",
         Color.red + this.name + Color.reset,
@@ -67,4 +67,3 @@ export default class Boss extends Character {
     }
   }
 }
-

@@ -27,7 +27,7 @@ export default class Fight { // Create a class named Fight
   }
 
   public winner(): string { // Get the winner of the fight
-    if (this.isFightOver()) {  // If the fight is over
+    if (this.isFightOver()) { // If the fight is over
       if (this.allies.some((ally) => ally.isAlive())) { // If the allies are alive
         return "Allies";
       } else { // If the ennemies are alive
@@ -89,19 +89,19 @@ export default class Fight { // Create a class named Fight
   private targetSelection(character: Character, isSpecialAttack = false) { // Target selection method
     let ennemyMenu: string[] = [];
     for (let i = 0; i < this.ennemies.length; i++) { // For each ennemy in the ennemies array
-      let estimatedDamage = this.ennemies[i].currentLifePoints ;
+      let estimatedDamage = this.ennemies[i].currentLifePoints;
       if (isSpecialAttack == true && character.name === "Mage") {
         estimatedDamage = this.ennemies[i].currentLifePoints - 20;
         if (estimatedDamage < 0) { // If the estimated damage is less than 0
           estimatedDamage = 0;
         }
       } else { // If the character is not a mage
-      estimatedDamage = this.ennemies[i].currentLifePoints -
-        (character.physicalAttack - this.ennemies[i].physicalDefense);
-      if (estimatedDamage < 0) { // If the estimated damage is less than 0
-        estimatedDamage = 0;
+        estimatedDamage = this.ennemies[i].currentLifePoints -
+          (character.physicalAttack - this.ennemies[i].physicalDefense);
+        if (estimatedDamage < 0) { // If the estimated damage is less than 0
+          estimatedDamage = 0;
+        }
       }
-    }
       ennemyMenu.push(
         this.ennemies[i].name + " " + Color.red +
           this.ennemies[i].currentLifePoints + "/" +
@@ -144,50 +144,55 @@ export default class Fight { // Create a class named Fight
       let mana = 0;
       let heal = this.allies[i].currentLifePoints;
       if (item === "Potion") { // If the item is a potion
-        heal = this.allies[i].currentLifePoints + this.allies[i].maxLifePoints * 0.5;
+        heal = this.allies[i].currentLifePoints +
+          this.allies[i].maxLifePoints * 0.5;
         if (heal > this.allies[i].maxLifePoints) {
-          heal = this.allies[i].maxLifePoints
+          heal = this.allies[i].maxLifePoints;
         }
       } else if (item === "Ether") { // If the item is an ether
         if (this.allies[i].name === "Mage" && this.allies[i] instanceof mage) { // If the ally is a mage
           let mage = this.allies[i] as mage; // Cast the ally to a mage
           mana = mage.currentManaPoints + mage.MaxManaPoints * 0.3;
           if (mana > mage.MaxManaPoints) {
-            mana = mage.MaxManaPoints
+            mana = mage.MaxManaPoints;
           }
-        } 
+        }
       } else if (item === "Piece of Star") { // If the item is a piece of star
         if (this.allies[i].currentLifePoints > 0) { // If the ally is alive
-          heal = this.allies[i].currentLifePoints +  this.allies[i].maxLifePoints * 0.5;
+          heal = this.allies[i].currentLifePoints +
+            this.allies[i].maxLifePoints * 0.5;
           if (heal > this.allies[i].maxLifePoints) {
-            heal = this.allies[i].maxLifePoints
+            heal = this.allies[i].maxLifePoints;
           }
         } else { // If the ally is dead
           heal = this.allies[i].maxLifePoints * 0.2;
         }
       } else if (item === "Half Star") { // If the item is a half star
         heal = this.allies[i].maxLifePoints;
-      } 
+      }
       if (this.allies[i] instanceof mage) { // If the ally is an instance of the Mage class
         let mage = this.allies[i] as mage; // Cast the ally to a mage
 
-        allyMenu.push(        
-        this.allies[i].name + " " + Color.green + this.allies[i].currentLifePoints + "/" + 
-        this.allies[i].maxLifePoints + " HP" + Color.reset + 
-        " ".repeat(3) + Color.blue + mage.currentManaPoints + "/" + mage.MaxManaPoints +  " MP" +
-         " ".repeat(5) + Color.black + "Estimated Heal" + " ".repeat(3) +
-        heal + "/" + this.allies[i].maxLifePoints + " HP" + 
-        " ".repeat(10) + "Estimated Mana" + " ".repeat(3) + mana + "/" +
-        mage.MaxManaPoints + " MP" + Color.reset,
+        allyMenu.push(
+          this.allies[i].name + " " + Color.green +
+            this.allies[i].currentLifePoints + "/" +
+            this.allies[i].maxLifePoints + " HP" + Color.reset +
+            " ".repeat(3) + Color.blue + mage.currentManaPoints + "/" +
+            mage.MaxManaPoints + " MP" +
+            " ".repeat(5) + Color.black + "Estimated Heal" + " ".repeat(3) +
+            heal + "/" + this.allies[i].maxLifePoints + " HP" +
+            " ".repeat(10) + "Estimated Mana" + " ".repeat(3) + mana + "/" +
+            mage.MaxManaPoints + " MP" + Color.reset,
         );
       } else { // If the ally is not an instance of the Mage class
-      allyMenu.push(
-        this.allies[i].name + " " + Color.green + this.allies[i].currentLifePoints + "/" + 
-        this.allies[i].maxLifePoints + " HP" + Color.reset +
-         " ".repeat(10) + Color.black + "Estimated Heal" + " ".repeat(3) +
-        heal + "/" + this.allies[i].maxLifePoints + " HP" + Color.reset,
+        allyMenu.push(
+          this.allies[i].name + " " + Color.green +
+            this.allies[i].currentLifePoints + "/" +
+            this.allies[i].maxLifePoints + " HP" + Color.reset +
+            " ".repeat(10) + Color.black + "Estimated Heal" + " ".repeat(3) +
+            heal + "/" + this.allies[i].maxLifePoints + " HP" + Color.reset,
         );
-    }
+      }
     }
     allyMenu.push("Return");
     console.log("Choose an ally to heal:");
@@ -203,7 +208,7 @@ export default class Fight { // Create a class named Fight
     } else if (choice === "3") { // If the choice is 3
       return this.allies[2];
     } else if (choice === "4") { // If the choice is 4
-      return "return"; 
+      return "return";
     } else { // If the choice is not 1, 2, 3 or 4
       console.log("Invalid choice");
       return this.allySelection(item);
@@ -211,7 +216,7 @@ export default class Fight { // Create a class named Fight
   }
 
   public async fight() { // Fight method async
-    let turn = 1; 
+    let turn = 1;
     let characters = this.SpeedOrder; // Get the speed order of the characters
     let playerTurn = 0;
     while (!this.isFightOver() && playerTurn < characters.length) { // While the fight is not over and the player turn is less than the length of the characters array
@@ -239,7 +244,7 @@ export default class Fight { // Create a class named Fight
             }
             character.attack(target); // Attack the target
           } else if (choice === "2") { // If the choice is 2 cast the special attack
-            if (character.name === "Priest") { 
+            if (character.name === "Priest") {
               character.specialAttack(this.allies);
             } else if (character.name === "Paladin") {
               character.specialAttack(this.ennemies);

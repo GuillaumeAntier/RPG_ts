@@ -29,7 +29,7 @@ export default class Mage extends Character { // Mage class that extends Charact
     );
     this.magicAttack = magicAttack;
     this.MaxManaPoints = MaxManaPoints;
-    this.currentManaPoints = MaxManaPoints ;
+    this.currentManaPoints = MaxManaPoints;
     this.type = "ally";
   }
 

@@ -2,7 +2,7 @@ import Character from "./Character.ts";
 import Color from "./Color.ts";
 
 export default class Warrior extends Character { // Warrior class that extends Character
-  public type = "ally"; 
+  public type = "ally";
   public color = Color.green;
 
   public specialAttack(targets: Character[]) { // special attack method

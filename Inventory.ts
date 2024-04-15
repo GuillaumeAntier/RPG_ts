@@ -2,9 +2,7 @@ export default class Inventory { // Inventory class
   public teamInventory: string[];
 
   constructor() {
-    this.teamInventory = [
-      
-    ];
+    this.teamInventory = [];
   }
 
   public add(item: string) { // add method
@@ -18,7 +16,7 @@ export default class Inventory { // Inventory class
     }
   }
 
-  public hasItem(item: string) :boolean { // hasItem method
+  public hasItem(item: string): boolean { // hasItem method
     return this.teamInventory.includes(item);
   }
 }
